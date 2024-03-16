@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Arc?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" stylesheets="@css/init_style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.InitController">
+    <children>
+      <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
+        <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" layoutY="6.0" prefHeight="50.0" prefWidth="1281.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <padding>
+                <Insets right="10.0" />
+            </padding>
+         <AnchorPane styleClass="tab">
+            <children>
+               <StackPane layoutX="90.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="1109.0" styleClass="tab">
+                  <children>
+                     <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="413.0" />
+                  </children>
+               </StackPane>
+               <ImageView fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@assets/Panda.png" />
+                  </image>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+               </ImageView>
+               <Text fill="WHITE" layoutX="71.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panda Scheduler" wrappingWidth="138.40341186523438">
+                  <font>
+                     <Font size="18.0" />
+                  </font>
+               </Text>
+            </children>
+         </AnchorPane>
+            <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
+            <color>
+               <Color red="0.27843138575553894" green="0.7647058963775635" blue="0.8274509906768799" />
+            </color></MFXFontIcon>
+            <MFXFontIcon fx:id="minimizeIcon" description="fas-circle" onMouseClicked="#maximize" size="15.0" styleClass="always-on-top-icon">
+            <color>
+               <Color red="0.95686274766922" green="0.46666666865348816" blue="0.2078431397676468" />
+            </color></MFXFontIcon>
+            <MFXFontIcon fx:id="closeIcon" description="fas-circle" onMouseClicked="#exit" size="15.0" styleClass="always-on-top-icon">
+            <color>
+               <Color red="0.7098039388656616" green="0.2235294133424759" blue="0.4901960790157318" />
+            </color></MFXFontIcon>
+        </HBox>
+      <ImageView fx:id="panda" fitHeight="357.0" fitWidth="394.0" layoutX="460.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/Panda.png" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Text fx:id="welcome" fill="WHITE" layoutX="302.0" layoutY="673.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="684.5368957519531">
+         <font>
+            <Font name="LCDMono2 Bold" size="42.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Text>
+      <Line endX="-60.0" layoutX="470.0" layoutY="332.0" startX="-100.0" stroke="#47c3d3" />
+      <Line endX="-60.0" layoutX="970.0" layoutY="332.0" startX="-100.0" stroke="#47c3d3" />
+      <Line endX="-60.0" layoutX="719.0" layoutY="83.0" rotate="90.0" startX="-100.0" stroke="#47c3d3" />
+      <Line endX="-60.0" layoutX="719.0" layoutY="583.0" rotate="90.0" startX="-100.0" stroke="#47c3d3" />
+      <Arc fx:id="arc" fill="#1f93ff00" layoutX="640.0" layoutY="334.0" radiusX="250.0" radiusY="250.0" stroke="#b5397d" strokeType="INSIDE" strokeWidth="5.0">
+         <effect>
+            <DropShadow height="42.75" radius="20.6875" spread="0.65" width="42.0">
+               <color>
+                  <Color red="0.7098039388656616" green="0.2235294133424759" blue="0.4901960790157318" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Arc>
+    </children>
+</AnchorPane>
