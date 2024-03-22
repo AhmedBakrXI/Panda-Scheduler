@@ -11,13 +11,13 @@ public class SJF extends Scheduler{
     }
 
     @Override
-    void schedule() {
+    public void schedule() {
 
         setIdle(true);
 
         if(!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter()))
         {
-            if(!(processes.isPreemptive()))
+            if(!(isPreemptive()))
             {
                 if(!(processes.get(currentExecutingProcessIdx).getRemainingTime() > 0))
                 {
