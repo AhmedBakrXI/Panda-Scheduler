@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 
 import javafx.scene.text.Text;
@@ -169,9 +170,9 @@ public class InitController implements Initializable {
                 stage = (Stage) s.getWindow();
                 stage.setTitle("Panda Scheduler");
                 try {
-                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-//                    stage.setScene(scene);
-//                    stage.show();
+                    Scene scene = new Scene(fxmlLoader.load(), 1280, 720, Color.TRANSPARENT);
+                    stage.setScene(scene);
+                    stage.show();
                 } catch (IOException ex) {
                     System.out.println("Couldn't load");
                 }
