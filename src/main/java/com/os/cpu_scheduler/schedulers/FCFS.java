@@ -10,25 +10,29 @@ public class FCFS extends Scheduler {
 
     @Override
     public void schedule() {
-        int minArrivalIdx = 0;
 
         setIdle(true);
-        if(!(processes.get(minArrivalIdx).getArrivalTime() > processes.getClockCounter()))
+        if(!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter()))
         {
-            setIdle(false);
-            for (int i = 1; i < processes.length(); i++) {
-                if(processes.get(minArrivalIdx).getRemainingTime() == 0){
-                    minArrivalIdx++;
+            for (int i = currentExecutingProcessIdx; i < processes.length(); i++) {
+                if(processes.get(currentExecutingProcessIdx).getRemainingTime() == 0){
+                    currentExecutingProcessIdx++;
                 }
                 if(processes.get(i).getRemainingTime() > 0){
-                    if(processes.get(i).getArrivalTime() < processes.get(minArrivalIdx).getArrivalTime()){
-                        minArrivalIdx = i;
+                    if(processes.get(i).getArrivalTime() < processes.get(currentExecutingProcessIdx).getArrivalTime()){
+                        currentExecutingProcessIdx = i;
                     }
                 }
             }
-            calculateWaitingTimeAndTurnaroundTime(minArrivalIdx);
-            tick(minArrivalIdx);
 
+            if(!(processes.get(currentExecutingProcessIdx).getRemainingTime() == 0) &&
+                 (!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter())))
+            {
+                setIdle(false);
+                //calculatin waiting time and turnaround time
+                calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
+                tick(currentExecutingProcessIdx);
+            }
         }
         processes.incClockCounter();
     }
