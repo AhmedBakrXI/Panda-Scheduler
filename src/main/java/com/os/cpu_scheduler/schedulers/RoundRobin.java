@@ -12,21 +12,39 @@ public class RoundRobin extends Scheduler{
     }
 
     @Override
-    void schedule() {
+    public void schedule() {
 
         setIdle(true);
 
-        if(!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter()))
+        for(; currentExecutingProcessIdx < processes.length(); currentExecutingProcessIdx++) {
+            
+            if ((processes.get(currentExecutingProcessIdx).getArrivalTime() <= processes.getClockCounter())
+                && (processes.get(currentExecutingProcessIdx).getRemainingTime() > 0))
+            {
+                setIdle(false);
+                break;
+            }
+        }
+
+        if(isIdle())
         {
-            setIdle(false);
+            currentExecutingProcessIdx = 0;
+            for(; currentExecutingProcessIdx < processes.length(); currentExecutingProcessIdx++) {
+            
+                if ((processes.get(currentExecutingProcessIdx).getArrivalTime() <= processes.getClockCounter())
+                    && (processes.get(currentExecutingProcessIdx).getRemainingTime() > 0))
+                {
+                    setIdle(false);
+                    break;
+                }
+            }
+        }
 
-            
-            
-
-            
-            //calculatin waiting time and turnaround time
+        if(!(isIdle()))
+        {
             calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
             tick(currentExecutingProcessIdx);
+            currentExecutingProcessIdx++;
         }
         processes.incClockCounter();
     }
