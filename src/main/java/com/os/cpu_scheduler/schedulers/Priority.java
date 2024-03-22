@@ -17,7 +17,6 @@ public class Priority extends Scheduler{
 
         if(!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter()))
         {
-            setIdle(false);
 
             if(!(processes.isPreemptive()))
             {
@@ -58,14 +57,14 @@ public class Priority extends Scheduler{
             }
 
 
-            //calculatin waiting time and turnaround time
-            calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
-            tick(currentExecutingProcessIdx);
+            if(!(processes.get(currentExecutingProcessIdx).getRemainingTime() == 0))
+            {
+                setIdle(false);
+                //calculatin waiting time and turnaround time
+                calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
+                tick(currentExecutingProcessIdx);
+            }
         }
-
         processes.incClockCounter();
-        System.out.println(" ClockCounter = " + processes.getClockCounter());
     }
-
-
 }
