@@ -17,8 +17,6 @@ public class SJF extends Scheduler{
 
         if(!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter()))
         {
-            setIdle(false);
-
             if(!(processes.isPreemptive()))
             {
                 if(!(processes.get(currentExecutingProcessIdx).getRemainingTime() > 0))
@@ -57,16 +55,17 @@ public class SJF extends Scheduler{
                 }
             }
 
-
-            //calculatin waiting time and turnaround time
-            calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
-            tick(currentExecutingProcessIdx);
+            if(!(processes.get(currentExecutingProcessIdx).getRemainingTime() == 0))
+            {
+                setIdle(false);
+                //calculatin waiting time and turnaround time
+                calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
+                tick(currentExecutingProcessIdx);
+            }
         }
-
+        
         processes.incClockCounter();
     }
-
-
 }
 
 
