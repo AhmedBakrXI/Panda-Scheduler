@@ -8,9 +8,12 @@ public class ProcessList{
     private ArrayList<Process> processes;
     private int totalRemainingTime = 0;
     private int clockCounter = 0;
-    private boolean preemptive = false;
+    
 
-
+    private void sortTheArray(){
+        Comparator<Process> comparator = Comparator.comparingInt(Process::getArrivalTime);
+        Collections.sort(processes, comparator);
+    }
 
     public ProcessList() {
         this.processes = new ArrayList<Process>();
@@ -38,14 +41,6 @@ public class ProcessList{
         this.clockCounter += 1;
     }
 
-    public boolean isPreemptive() {
-        return preemptive;
-    }
-
-    public void setPreemptive(boolean Preemptive) {
-        this.preemptive = Preemptive;
-    }
-
     public void addProcess(Process process){
         processes.add(process);
         sortTheArray();
@@ -66,35 +61,11 @@ public class ProcessList{
         return finish;
     }
 
-
-
     public void printTheArray(){
         for (int i = 0; i < processes.size() ; i++) {
             System.out.println(processes.get(i).getArrivalTime());
         }
     }
-    
-    private void sortTheArray(){
-        Comparator<Process> comparator = Comparator.comparingInt(Process::getArrivalTime);
-        Collections.sort(processes, comparator);
-    }
-
-    public double avgWaitingTime(){
-        double avg = 0;
-        for (Process process : processes) {
-            avg += process.getWaitingTime();
-        }
-        return Math.round((avg/processes.size()) *100)/(100.0);
-    }    
-    public double avgTurnAroundTime(){
-        double avg = 0;
-        for (Process process : processes) {
-            avg += process.getTurnaroundTime();
-        }
-        return Math.round((avg/processes.size()) *100)/(100.0);
-    }
-
  
 }
-
 
