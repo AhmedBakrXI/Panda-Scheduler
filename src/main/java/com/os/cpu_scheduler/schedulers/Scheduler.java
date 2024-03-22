@@ -3,7 +3,9 @@ import com.os.cpu_scheduler.process.*;
 public abstract class Scheduler {
     protected ProcessList processes;
     protected boolean idle = true;
+    private boolean preemptive = false;
     protected int currentExecutingProcessIdx = 0;
+    
     // UI concern
     public Scheduler(ProcessList processList) {
         processes = processList;
@@ -15,6 +17,14 @@ public abstract class Scheduler {
 
     public void setIdle(boolean idle) {
         this.idle = idle;
+    }
+
+    public boolean isPreemptive() {
+        return preemptive;
+    }
+
+    public void setPreemptive(boolean Preemptive) {
+        this.preemptive = Preemptive;
     }
 
     public void tick(int i){
