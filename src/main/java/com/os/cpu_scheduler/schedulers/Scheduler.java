@@ -46,7 +46,7 @@ public abstract class Scheduler {
             processes.get(currentExecutingProcessIdx).incTurnaroundTime();
     }
     
-    abstract void schedule();
+    public abstract void schedule();
 
 
 }

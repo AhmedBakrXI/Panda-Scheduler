@@ -13,12 +13,12 @@ import java.io.IOException;
 public class MainApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("init-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1280, 720, Color.TRANSPARENT);
         stage.setTitle("Panda Scheduler");
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/Panda.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/logo.png")));
         stage.show();
     }
 
