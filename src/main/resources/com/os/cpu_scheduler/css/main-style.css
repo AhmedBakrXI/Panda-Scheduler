@@ -1,0 +1,44 @@
+@import 'app_colors.css'
+
+#schedChoices {
+    -fx-border-color: transparent;
+    -fx-border-radius: 30;
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-text-fill: derive(my_blue, 25%);
+    -fx-padding: 3 3 3 6;
+    -fx-background-insets: 4 0 0 -3;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-box-border: transparent;
+}
+
+.mfx-combo-box {
+	-fx-min-height: 35;
+}
+
+#schedChoices .floating-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+#schedChoices .caret .mfx-font-icon {
+    -mfx-color: my_blue;
+    -fx-text-fill: white;
+}
+
+#schedChoices .caret .mfx-ripple-generator {
+    -mfx-ripple-color: rgba(255, 255, 255, 0.1);
+}
+
+#schedChoices .virtual-flow {
+    -track-color: derive(my_blue, 90%);
+    -thumb-color: derive(my_blue, 50%);
+    -thumb-hover-color: derive(my_blue, 25%);
+}
+
+#schedChoices .virtual-flow .mfx-combo-box-cell:hover {
+    -fx-background-color: derive(my_blue, 70%);
+    -fx-text-fill: white;
+}
+

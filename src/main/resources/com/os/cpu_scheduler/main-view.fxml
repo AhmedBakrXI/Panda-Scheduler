@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" stylesheets="@css/init_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" stylesheets="@css/init_style.css, @css/main-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
    <children>
       <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
       <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="7.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1257.0" />
@@ -50,7 +50,7 @@
                      </Text>
                   </children>
                </AnchorPane>
-               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
                   <children>
                      <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
                         <color>
@@ -87,13 +87,13 @@
                               <Font name="System Bold" size="22.0" />
                            </font>
                         </Text>
-                        <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
+                        <HBox fx:id="fieldsBox" alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
                            <children>
-                              <MFXComboBox fx:id="schedChoices" floatMode="BORDER" prefHeight="38.0" prefWidth="165.0" text="Choose Scheduler" />
-                              <MFXTextField floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Process Name" selectable="false" />
-                              <MFXTextField floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Arrival Time" />
-                              <MFXTextField floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Burst Time" />
-                              <MFXTextField floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Priority" />
+                              <MFXComboBox id="schedChoices" fx:id="schedChoices" blendMode="SCREEN" borderGap="0.0" editable="false" floatMode="BORDER" floatingText="Choose Scheduler" onAction="#selectScheduler" popupOffsetY="10.0" prefHeight="22.0" prefWidth="166.0" selectable="true" styleClass="mfx-combo-box" />
+                              <MFXTextField fx:id="processName" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Process Name" selectable="false" />
+                              <MFXTextField fx:id="arrivalTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Arrival Time" selectable="false" />
+                              <MFXTextField fx:id="burstTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Burst Time" selectable="false" />
+                              <MFXTextField fx:id="priority" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Priority" selectable="false" />
                            </children>
                            <padding>
                               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -102,7 +102,7 @@
                         <HBox alignment="CENTER" prefHeight="99.0" prefWidth="1288.0" spacing="20.0">
                            <children>
                               <MFXButton onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" text="Add Process" />
-                              <MFXButton prefHeight="37.0" prefWidth="133.0" text="Start Simulation" />
+                              <MFXButton onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" text="Start Simulation" />
                            </children>
                         </HBox>
                      </children>
