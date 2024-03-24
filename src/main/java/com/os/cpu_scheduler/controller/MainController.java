@@ -30,6 +30,7 @@ import java.util.*;
 
 public class MainController implements Initializable {
 
+
     private boolean isPriorityRemoved;
     private boolean isLiveSimulation;
 
@@ -39,6 +40,9 @@ public class MainController implements Initializable {
 
     @FXML
     private HBox fieldsBox;
+
+    @FXML
+    private MFXButton addProcessBtn;
 
     @FXML
     private Rectangle window;
@@ -79,6 +83,8 @@ public class MainController implements Initializable {
         ComboBoxAdapter comboBoxAdapter = new ComboBoxAdapter(schedChoices);
         comboBoxAdapter.initComboBox(getChoicesList());
 
+        graph.getXAxis().setLabel("Time (sec)");
+        graph.getYAxis().setLabel("Remaining Time (sec)");
     }
 
     private void setupTable() {
@@ -227,8 +233,28 @@ public class MainController implements Initializable {
             Thread thread = new Thread(this::playLiveSim);
             thread.start();
         } else {
-            scheduler.schedule();
-            processTable.update();
+            addProcessBtn.setDisable(true);
+            if (!processList.isProcessesFinished()) {
+                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
+                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
+                scheduler.schedule();
+                processTable.update();
+                int idx = scheduler.getCurrentExecutingProcessIdx();
+
+                seriesList.get(idx)
+                        .getData()
+                        .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                                processList.getProcesses().get(idx).getRemainingTime()));
+            } else {
+                for (var series : seriesList) {
+                    series.getData().remove(0);
+                }
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Simulation Ended");
+                alert.setHeaderText("Non Live Simulation Ended Successfully");
+                alert.show();
+                addProcessBtn.setDisable(false);
+            }
         }
     }
 
@@ -248,7 +274,8 @@ public class MainController implements Initializable {
 
             Platform.runLater(() -> seriesList.get(idx)
                     .getData()
-                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(), processList.getProcesses().get(idx).getRemainingTime())));
+                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                            processList.getProcesses().get(idx).getRemainingTime())));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
