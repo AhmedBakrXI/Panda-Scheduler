@@ -6,6 +6,7 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -19,100 +20,103 @@
 <?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" stylesheets="@css/init_style.css, @css/main-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
-   <children>
-      <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
-      <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="7.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1257.0" />
-      <VBox prefHeight="719.0" prefWidth="1288.0">
-         <children>
-            <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1281.0" spacing="10.0">
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-               <AnchorPane styleClass="tab">
-                  <children>
-                     <StackPane layoutX="90.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="1109.0" styleClass="tab">
+    <children>
+        <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
+        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="7.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1257.0" />
+        <VBox prefHeight="719.0" prefWidth="1288.0">
+            <children>
+                <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1281.0" spacing="10.0">
+                    <padding>
+                        <Insets right="10.0" />
+                    </padding>
+                    <AnchorPane styleClass="tab">
                         <children>
-                           <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="413.0" />
+                            <StackPane layoutX="90.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="1109.0" styleClass="tab">
+                                <children>
+                                    <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="413.0" />
+                                </children>
+                            </StackPane>
+                            <ImageView fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                <image>
+                                    <Image url="@assets/Panda.png" />
+                                </image>
+                                <effect>
+                                    <DropShadow />
+                                </effect>
+                            </ImageView>
+                            <Text fill="WHITE" layoutX="71.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panda Scheduler" wrappingWidth="138.40341186523438">
+                                <font>
+                                    <Font size="18.0" />
+                                </font>
+                            </Text>
                         </children>
-                     </StackPane>
-                     <ImageView fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                        <image>
-                           <Image url="@assets/Panda.png" />
-                        </image>
-                        <effect>
-                           <DropShadow />
-                        </effect>
-                     </ImageView>
-                     <Text fill="WHITE" layoutX="71.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panda Scheduler" wrappingWidth="138.40341186523438">
-                        <font>
-                           <Font size="18.0" />
-                        </font>
-                     </Text>
-                  </children>
-               </AnchorPane>
-               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
-                  <children>
-                     <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
-                        <color>
-                           <Color red="0.27843138575553894" green="0.7647058963775635" blue="0.8274509906768799" />
-                        </color>
-                     </MFXFontIcon>
-                     <MFXFontIcon fx:id="minimizeIcon" description="fas-circle" onMouseClicked="#maximize" size="15.0" styleClass="always-on-top-icon">
-                        <color>
-                           <Color red="0.95686274766922" green="0.46666666865348816" blue="0.2078431397676468" />
-                        </color>
-                     </MFXFontIcon>
-                     <MFXFontIcon fx:id="closeIcon" description="fas-circle" onMouseClicked="#exit" size="15.0" styleClass="always-on-top-icon">
-                        <color>
-                           <Color red="0.7098039388656616" green="0.2235294133424759" blue="0.4901960790157318" />
-                        </color>
-                     </MFXFontIcon>
-                  </children>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-               </HBox>
-            </HBox>
-            <VBox prefHeight="674.0" prefWidth="1288.0">
-               <children>
-                  <AnchorPane prefHeight="445.0" prefWidth="1288.0">
-                     <children>
-                        <MFXTableView fx:id="processTable" footerVisible="false" layoutX="391.0" layoutY="159.0" prefHeight="160.0" prefWidth="618.0" />
-                     </children>
-                  </AnchorPane>
-                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
-                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Control Section">
-                           <font>
-                              <Font name="System Bold" size="22.0" />
-                           </font>
-                        </Text>
-                        <HBox fx:id="fieldsBox" alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
-                           <children>
-                              <MFXComboBox id="schedChoices" fx:id="schedChoices" blendMode="SCREEN" borderGap="0.0" editable="false" floatMode="BORDER" floatingText="Choose Scheduler" onAction="#selectScheduler" popupOffsetY="10.0" prefHeight="22.0" prefWidth="166.0" selectable="true" styleClass="mfx-combo-box" />
-                              <MFXTextField fx:id="processName" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Process Name" selectable="false" />
-                              <MFXTextField fx:id="arrivalTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Arrival Time" selectable="false" />
-                              <MFXTextField fx:id="burstTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Burst Time" selectable="false" />
-                              <MFXTextField fx:id="priority" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Priority" selectable="false" />
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                           </padding>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="99.0" prefWidth="1288.0" spacing="20.0">
-                           <children>
-                              <MFXButton onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" text="Add Process" />
-                              <MFXButton onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" text="Start Simulation" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets left="10.0" top="10.0" />
-                     </padding>
-                  </VBox>
-               </children>
-            </VBox>
-         </children>
-      </VBox>
-   </children>
+                    </AnchorPane>
+                    <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="8.0">
+                        <children>
+                            <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
+                                <color>
+                                    <Color red="0.27843138575553894" green="0.7647058963775635" blue="0.8274509906768799" />
+                                </color>
+                            </MFXFontIcon>
+                            <MFXFontIcon fx:id="minimizeIcon" description="fas-circle" onMouseClicked="#maximize" size="15.0" styleClass="always-on-top-icon">
+                                <color>
+                                    <Color red="0.95686274766922" green="0.46666666865348816" blue="0.2078431397676468" />
+                                </color>
+                            </MFXFontIcon>
+                            <MFXFontIcon fx:id="closeIcon" description="fas-circle" onMouseClicked="#exit" size="15.0" styleClass="always-on-top-icon">
+                                <color>
+                                    <Color red="0.7098039388656616" green="0.2235294133424759" blue="0.4901960790157318" />
+                                </color>
+                            </MFXFontIcon>
+                        </children>
+                        <HBox.margin>
+                            <Insets />
+                        </HBox.margin>
+                    </HBox>
+                </HBox>
+                <VBox prefHeight="674.0" prefWidth="1288.0">
+                    <children>
+                        <AnchorPane prefHeight="445.0" prefWidth="1288.0">
+                            <children>
+                                <MFXTableView fx:id="processTable" footerVisible="false" layoutX="391.0" layoutY="159.0" prefHeight="160.0" prefWidth="618.0" />
+                            </children>
+                        </AnchorPane>
+                        <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+                            <children>
+                                <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Control Section">
+                                        <font>
+                                            <Font name="System Bold" size="22.0" />
+                                        </font>
+                                    </Text>
+                           <CheckBox fx:id="liveSimCheckBox" mnemonicParsing="false" onAction="#checkLiveSimulation" text="Live Simulation" textFill="WHITE" />
+                                </HBox>
+                                <HBox fx:id="fieldsBox" alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
+                                    <children>
+                                        <MFXComboBox id="schedChoices" fx:id="schedChoices" blendMode="SCREEN" borderGap="0.0" editable="false" floatMode="BORDER" floatingText="Choose Scheduler" onAction="#selectScheduler" popupOffsetY="10.0" prefHeight="22.0" prefWidth="166.0" selectable="true" styleClass="mfx-combo-box" />
+                                        <MFXTextField fx:id="processName" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Process Name" selectable="false" />
+                                        <MFXTextField fx:id="arrivalTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Arrival Time" selectable="false" />
+                                        <MFXTextField fx:id="burstTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Burst Time" selectable="false" />
+                                        <MFXTextField fx:id="priority" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Priority" selectable="false" />
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                    </padding>
+                                </HBox>
+                                <HBox alignment="CENTER" prefHeight="99.0" prefWidth="1288.0" spacing="20.0">
+                                    <children>
+                                        <MFXButton onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" text="Add Process" />
+                                        <MFXButton fx:id="startSimBtn" onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" text="Start Simulation" />
+                                    </children>
+                                </HBox>
+                            </children>
+                            <padding>
+                                <Insets left="10.0" top="10.0" />
+                            </padding>
+                        </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

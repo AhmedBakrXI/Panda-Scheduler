@@ -5,14 +5,17 @@ import com.os.cpu_scheduler.adapter.TableViewAdapter;
 import com.os.cpu_scheduler.process.Process;
 import com.os.cpu_scheduler.process.ProcessList;
 import com.os.cpu_scheduler.schedulers.*;
+import io.github.palexdev.materialfx.controls.MFXButton;
 import io.github.palexdev.materialfx.controls.MFXComboBox;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.MFXTextField;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -25,6 +28,9 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
+    private boolean isLiveSimulation;
+
     private double offsetX, offsetY;
     private ProcessList processList;
 
@@ -44,9 +50,16 @@ public class MainController implements Initializable {
     @FXML
     private MFXTextField processName, arrivalTime, burstTime, priority;
 
+    @FXML
+    private CheckBox liveSimCheckBox;
+
+    @FXML
+    private MFXButton startSimBtn;
+
     // Temp
 
     private ObservableList<Process> observableList;
+    private TableViewAdapter tableViewAdapter;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,7 +76,7 @@ public class MainController implements Initializable {
     }
 
     private void setupTable() {
-        TableViewAdapter tableViewAdapter = new TableViewAdapter(processTable, observableList);
+        tableViewAdapter = new TableViewAdapter(processTable, observableList);
         tableViewAdapter.setupTable(true);
         processList.getProcesses().remove(0);
         observableList.remove(0);
@@ -95,7 +108,7 @@ public class MainController implements Initializable {
     }
 
     public void maximize(MouseEvent mouseEvent) {
-        Stage stage = ((Stage)((MFXFontIcon)mouseEvent.getSource()).getScene().getWindow());
+        Stage stage = ((Stage) ((MFXFontIcon) mouseEvent.getSource()).getScene().getWindow());
         stage.setMaximized(!stage.isMaximized());
         if (stage.isMaximized()) {
             window.setWidth(stage.getWidth());
@@ -121,6 +134,8 @@ public class MainController implements Initializable {
             p = -1;
         }
 
+        clearEntry();
+
         Process process = new Process(arrTime, burst, name, p);
         processList.addProcess(process);
         observableList.add(process);
@@ -134,6 +149,7 @@ public class MainController implements Initializable {
         } else if (schedulerName.equals(SchedulerTypes.SJF.getDescription())) {
             scheduler = new SJF(processList);
             fieldsBox.getChildren().remove(priority);
+            tableViewAdapter.removePriorityColumn();
         } else if (schedulerName.equals(SchedulerTypes.PRIORITY.getDescription())) {
             scheduler = new Priority(processList);
         } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
@@ -148,10 +164,40 @@ public class MainController implements Initializable {
         burstTime.setEditable(editable);
         arrivalTime.setEditable(editable);
     }
-    public void startSimulation() {
-        scheduler.schedule();
-        processTable.update();
+
+    private void clearEntry() {
+        processName.clear();
+        priority.clear();
+        burstTime.clear();
+        arrivalTime.clear();
+        processName.requestFocus();
     }
 
+    public void startSimulation() {
+        if (isLiveSimulation) {
+            Thread thread = new Thread(this::playLiveSim);
+            thread.start();
+        } else {
+            scheduler.schedule();
+            processTable.update();
+        }
+    }
 
+    private void playLiveSim() {
+        startSimBtn.setDisable(true);
+        while (!processList.isProcessesFinished()) {
+            scheduler.schedule();
+            Platform.runLater(() -> processTable.update());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                System.out.println("Can't Sleep");
+            }
+        }
+        startSimBtn.setDisable(false);
+    }
+
+    public void checkLiveSimulation() {
+        isLiveSimulation = liveSimCheckBox.isSelected();
+    }
 }
