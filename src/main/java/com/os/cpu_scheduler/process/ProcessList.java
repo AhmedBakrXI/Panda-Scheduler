@@ -61,6 +61,22 @@ public class ProcessList{
         return finish;
     }
 
+
+    public double avgWaitingTime(){
+        double avg = 0;
+        for (Process process : processes) {
+            avg += process.getWaitingTime();
+        }
+        return Math.round((avg/processes.size()) *100)/(100.0);
+    }    
+    public double avgTurnAroundTime(){
+        double avg = 0;
+        for (Process process : processes) {
+            avg += process.getTurnaroundTime();
+        }
+        return Math.round((avg/processes.size()) *100)/(100.0);
+    }
+
     public void printTheArray(){
         for (int i = 0; i < processes.size() ; i++) {
             System.out.println(processes.get(i).getArrivalTime());
