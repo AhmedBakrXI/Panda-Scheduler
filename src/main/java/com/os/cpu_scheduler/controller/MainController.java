@@ -15,6 +15,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -23,17 +26,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.util.ArrayList;
-
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class MainController implements Initializable {
 
+    private boolean isPriorityRemoved;
     private boolean isLiveSimulation;
 
     private double offsetX, offsetY;
     private ProcessList processList;
-
     private Scheduler scheduler;
 
     @FXML
@@ -55,6 +56,11 @@ public class MainController implements Initializable {
 
     @FXML
     private MFXButton startSimBtn;
+
+    @FXML
+    private AreaChart<Integer, Integer> graph;
+
+    private final ArrayList<XYChart.Series<Integer, Integer>> seriesList = new ArrayList<>();
 
     // Temp
 
@@ -124,36 +130,79 @@ public class MainController implements Initializable {
     }
 
     public void addProcess() {
+
         String name = processName.getText();
-        int arrTime = Integer.parseInt(arrivalTime.getText());
-        int burst = Integer.parseInt(burstTime.getText());
-        int p;
         try {
-            p = Integer.parseInt(priority.getText());
+            int arrTime = Integer.parseInt(arrivalTime.getText());
+            int burst = Integer.parseInt(burstTime.getText());
+
+            int p;
+            try {
+                p = Integer.parseInt(priority.getText());
+            } catch (NumberFormatException e) {
+                p = -1;
+            }
+
+            XYChart.Series<Integer, Integer> series = new XYChart.Series<>();
+            series.setName(name);
+            series.getData().add(new XYChart.Data<>(arrTime, burst));
+            seriesList.add(series);
+            graph.getData().add(series);
+            clearEntry();
+
+            Process process = new Process(arrTime, burst, name, p);
+            processList.addProcess(process);
+            observableList.add(process);
+            processTable.update();
         } catch (NumberFormatException e) {
-            p = -1;
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid inputs");
+            alert.show();
         }
-
-        clearEntry();
-
-        Process process = new Process(arrTime, burst, name, p);
-        processList.addProcess(process);
-        observableList.add(process);
-        processTable.update();
     }
 
     public void selectScheduler() {
         String schedulerName = schedChoices.getSelectedItem();
         if (schedulerName.equals(SchedulerTypes.FCFS.getDescription())) {
             scheduler = new FCFS(processList);
-        } else if (schedulerName.equals(SchedulerTypes.SJF.getDescription())) {
-            scheduler = new SJF(processList);
             fieldsBox.getChildren().remove(priority);
             tableViewAdapter.removePriorityColumn();
-        } else if (schedulerName.equals(SchedulerTypes.PRIORITY.getDescription())) {
+            isPriorityRemoved = true;
+        } else if (schedulerName.equals(SchedulerTypes.SJF_PREEMPTIVE.getDescription())) {
+            scheduler = new SJF(processList);
+            scheduler.setPreemptive(true);
+            fieldsBox.getChildren().remove(priority);
+            tableViewAdapter.removePriorityColumn();
+            isPriorityRemoved = true;
+        } else if (schedulerName.equals(SchedulerTypes.SJF_NON_PREEMPTIVE.getDescription())) {
+            scheduler = new SJF(processList);
+            scheduler.setPreemptive(false);
+            fieldsBox.getChildren().remove(priority);
+            tableViewAdapter.removePriorityColumn();
+            isPriorityRemoved = true;
+        } else if (schedulerName.equals(SchedulerTypes.PRIORITY_PREEMPTIVE.getDescription())) {
             scheduler = new Priority(processList);
+            scheduler.setPreemptive(true);
+            if (isPriorityRemoved) {
+                tableViewAdapter.addPriorityColumn();
+                fieldsBox.getChildren().add(priority);
+                isPriorityRemoved = false;
+            }
+        } else if (schedulerName.equals(SchedulerTypes.PRIORITY_NON_PREEMPTIVE.getDescription())) {
+            scheduler = new Priority(processList);
+            scheduler.setPreemptive(false);
+            if (isPriorityRemoved) {
+                tableViewAdapter.addPriorityColumn();
+                fieldsBox.getChildren().add(priority);
+                isPriorityRemoved = false;
+            }
         } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
             scheduler = new RoundRobin(processList);
+            if (isPriorityRemoved) {
+                tableViewAdapter.addPriorityColumn();
+                fieldsBox.getChildren().add(priority);
+                isPriorityRemoved = false;
+            }
         }
         setEditable(true);
     }
@@ -183,16 +232,32 @@ public class MainController implements Initializable {
         }
     }
 
+
     private void playLiveSim() {
         startSimBtn.setDisable(true);
+
+
         while (!processList.isProcessesFinished()) {
+            Platform.runLater(() -> {
+                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
+                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
+            });
             scheduler.schedule();
             Platform.runLater(() -> processTable.update());
+            int idx = scheduler.getCurrentExecutingProcessIdx();
+
+            Platform.runLater(() -> seriesList.get(idx)
+                    .getData()
+                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(), processList.getProcesses().get(idx).getRemainingTime())));
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println("Can't Sleep");
             }
+        }
+
+        for (var series : seriesList) {
+            series.getData().remove(0);
         }
         startSimBtn.setDisable(false);
     }
@@ -200,4 +265,15 @@ public class MainController implements Initializable {
     public void checkLiveSimulation() {
         isLiveSimulation = liveSimCheckBox.isSelected();
     }
+
+    private int getStartTime() {
+        int min = processList.getProcesses().get(0).getArrivalTime();
+        for (int i = 1; i < processList.getProcesses().size(); i++) {
+            if (processList.getProcesses().get(i).getArrivalTime() < min)
+                min = processList.getProcesses().get(i).getArrivalTime();
+        }
+        return min;
+    }
+
+
 }

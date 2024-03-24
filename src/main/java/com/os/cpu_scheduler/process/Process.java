@@ -24,6 +24,15 @@ public class Process {
         remainingTime = burstTime;
         this.priority = priority;
     }
+
+    public Process(Process p) {
+        this.name = new String(p.name);
+        this.burstTime = p.burstTime;
+        this.priority = p.priority;
+        this.arrivalTime = p.arrivalTime;
+        this.remainingTime = p.remainingTime;
+    }
+
     // some getters&setters
     public int getRemainingTime() {
         return remainingTime;

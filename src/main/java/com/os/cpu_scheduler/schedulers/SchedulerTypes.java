@@ -2,9 +2,11 @@ package com.os.cpu_scheduler.schedulers;
 
 public enum SchedulerTypes {
     FCFS("FCFS"),
-    PRIORITY("Priority"),
+    PRIORITY_PREEMPTIVE("Priority Preemptive"),
+    PRIORITY_NON_PREEMPTIVE("Priority Non Preemptive"),
     ROUND_ROBIN("Round Robin"),
-    SJF("Shortest Job First");
+    SJF_PREEMPTIVE("SJF Preemptive"),
+    SJF_NON_PREEMPTIVE("SJF Non Preemptive");
 
     private final String description;
 
