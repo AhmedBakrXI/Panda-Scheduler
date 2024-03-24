@@ -107,11 +107,11 @@
     -fx-background-radius: 20;
     -fx-border-radius: 60;
     -fx-background-color: white;
-    -fx-border-color: #000caa;
+    -fx-border-color: #ff0caa;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-padding: 1 3 1 3;
-    -fx-focus-color: #000caa;
+    -fx-focus-color: #ff0caa;
     -fx-faint-focus-color: transparent;
 }
 
@@ -121,12 +121,12 @@
     -fx-background-radius: 20;
     -fx-border-radius: 50;
     -fx-background-color: white;
-    -fx-border-color: #000caa;
+    -fx-border-color: #ff0caa;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-background-insets: 0;
     -fx-padding: 1 3 1 3;
-    -fx-focus-color: #000caa;
+    -fx-focus-color: #ff0caa;
     -fx-faint-focus-color: transparent;
 }
 

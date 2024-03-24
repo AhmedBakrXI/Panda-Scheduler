@@ -14,14 +14,14 @@
 }
 
 .background {
-    -fx-fill: my_blue;
+    -fx-fill: #303030;
     -fx-arc-height: 30px;
     -fx-arc-width: 30px;
     -fx-effect: dropShadow(three-pass-box, #000000, 5, 0, 0, 0);
 }
 
 .holder {
-    -fx-fill: my_blue;
+    -fx-fill: #202020;
     -fx-effect: dropShadow(three-pass-box, #000000, 10, 0, 0, 0);
 }
 
@@ -65,7 +65,7 @@
 }
 
 #schedChoices .caret .mfx-ripple-generator {
-    -mfx-ripple-color: rgba(255, 255, 255, 0.1);
+    -mfx-ripple-color: rgba(0, 255, 255, 1);
 }
 
 #schedChoices .virtual-flow {
@@ -107,11 +107,11 @@
     -fx-background-radius: 20;
     -fx-border-radius: 60;
     -fx-background-color: white;
-    -fx-border-color: my_blue;
+    -fx-border-color: #303030;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-padding: 1 3 1 3;
-    -fx-focus-color: my_blue;
+    -fx-focus-color: #303030;
     -fx-faint-focus-color: transparent;
 }
 
@@ -121,7 +121,7 @@
     -fx-background-radius: 20;
     -fx-border-radius: 50;
     -fx-background-color: white;
-    -fx-border-color: my_blue;
+    -fx-border-color: #303030;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-background-insets: 0;

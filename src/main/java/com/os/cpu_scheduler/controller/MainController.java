@@ -348,9 +348,11 @@ public class MainController implements Initializable {
 
                 Platform.runLater(() -> {
                     Rectangle rectangle = new Rectangle(20, 50);
-                    rectangle.setFill(colors.get(
-                            scheduler.getCurrentExecutingProcessIdx()
-                    ));
+                    rectangle.setFill(colors
+                            .get(scheduler.getCurrentExecutingProcessIdx())
+                            .brighter()
+                    );
+
                     Text text = new Text(processList
                             .getProcesses()
                             .get(scheduler.getCurrentExecutingProcessIdx())

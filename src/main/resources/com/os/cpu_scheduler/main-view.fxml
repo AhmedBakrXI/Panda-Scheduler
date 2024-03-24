@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
     <children>
         <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="#125b9e" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
         <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="13.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1251.0" />
@@ -36,7 +36,7 @@
                     </padding>
                     <AnchorPane styleClass="tab">
                         <children>
-                            <StackPane layoutX="280.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="858.0" styleClass="tab">
+                            <StackPane layoutX="280.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="892.0" styleClass="tab">
                                 <children>
                                     <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="608.0" />
                                 </children>
@@ -101,6 +101,9 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </TextField>
                         <Label text="Waiting Time" textFill="WHITE">
                            <font>
@@ -111,6 +114,9 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </TextField>
                         <Label text="Turnaround Time" textFill="WHITE">
                            <font>
@@ -121,6 +127,9 @@
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </TextField>
                      </children>
                      <padding>
@@ -132,7 +141,10 @@
                      </padding></HBox>
                   <HBox prefHeight="239.0" prefWidth="1218.0" spacing="30.0">
                      <children>
-                                <MFXTableView fx:id="processTable" footerVisible="false" prefHeight="214.0" prefWidth="675.0" />
+                                <MFXTableView fx:id="processTable" footerVisible="false" prefHeight="214.0" prefWidth="675.0">
+                           <effect>
+                              <DropShadow />
+                           </effect></MFXTableView>
                         <AreaChart fx:id="graph" prefHeight="218.0" prefWidth="545.0">
                           <xAxis>
                             <NumberAxis side="BOTTOM" />
@@ -140,6 +152,9 @@
                           <yAxis>
                             <NumberAxis side="LEFT" />
                           </yAxis>
+                           <effect>
+                              <DropShadow />
+                           </effect>
                         </AreaChart>
                      </children>
                      <VBox.margin>

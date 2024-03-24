@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -25,7 +26,6 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
-
 
 
 public class InitController implements Initializable {
@@ -47,6 +47,9 @@ public class InitController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Font font = Font.loadFont(getClass().getResourceAsStream("/com/os/cpu_scheduler/font/LCD-BOLD.TTF"), 48);
+        welcome.setFont(font);
+
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
@@ -74,6 +77,7 @@ public class InitController implements Initializable {
             e.printStackTrace();
         }
     }
+
     private void arcProgress() {
         Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(arc.lengthProperty(), -60)),
