@@ -1,0 +1,175 @@
+@import 'app_colors.css';
+
+.always-on-top-icon {
+	-fx-opacity: 0.5;
+}
+
+.always-on-top-icon:hover {
+    -fx-cursor: hand;
+	-fx-opacity: 1.0;
+}
+
+.always-on-top-icon:always-on-top {
+	-fx-opacity: 1.0;
+}
+
+.background {
+    -fx-fill: white;
+    -fx-arc-height: 30px;
+    -fx-arc-width: 30px;
+    -fx-effect: dropShadow(three-pass-box, #000000, 5, 0, 0, 0);
+}
+
+.holder {
+    -fx-fill: my_blue;
+    -fx-effect: dropShadow(three-pass-box, #000000, 10, 0, 0, 0);
+}
+
+.holder:hover {
+    -fx-cursor: move;
+}
+
+.tab {
+    -fx-cursor: move;
+}
+
+.trans_anchor {
+    -fx-background-color: transparent;
+}
+
+#schedChoices {
+    -fx-border-color: transparent;
+    -fx-border-radius: 30;
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-text-fill: derive(my_blue, 25%);
+    -fx-padding: 3 3 3 6;
+    -fx-background-insets: 4 0 0 -3;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-text-box-border: transparent;
+}
+
+.mfx-combo-box {
+	-fx-min-height: 35;
+}
+
+#schedChoices .floating-text {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+#schedChoices .caret .mfx-font-icon {
+    -mfx-color: #000caa;
+    -fx-text-fill: white;
+}
+
+#schedChoices .caret .mfx-ripple-generator {
+    -mfx-ripple-color: rgba(255, 255, 255, 0.1);
+}
+
+#schedChoices .virtual-flow {
+    -track-color: derive(my_blue, 90%);
+    -thumb-color: derive(my_blue, 50%);
+    -thumb-hover-color: derive(#000caa, 25%);
+}
+
+#schedChoices .virtual-flow .mfx-combo-box-cell:hover {
+    -fx-background-color: derive(#000caa, 70%);
+    -fx-text-fill: white;
+}
+
+.chart {
+    -fx-background-color: #05263b;
+    -fx-text-fill: white;
+}
+
+.axis-label {
+    -fx-text-fill: #ffffff;
+}
+
+.chart-plot-background {
+    -fx-background-color:transparent;
+}
+
+.chart .chart-legend {
+    -fx-background-color: transparent; /* Background color */
+    -fx-padding: 0; /* Padding */
+}
+
+.chart .chart-legend-item {
+    -fx-font-size: 12px; /* Font size */
+    -fx-text-fill: white; /* Text color */
+}
+
+.btn {
+    -fx-max-width: 200px;
+    -fx-background-radius: 20;
+    -fx-border-radius: 60;
+    -fx-background-color: white;
+    -fx-border-color: #000caa;
+    -fx-border-width: 10px;
+    -fx-text-box-border: transparent;
+    -fx-padding: 1 3 1 3;
+    -fx-focus-color: #000caa;
+    -fx-faint-focus-color: transparent;
+}
+
+
+.rounded-text-field {
+    -fx-max-width: 200px;
+    -fx-background-radius: 20;
+    -fx-border-radius: 50;
+    -fx-background-color: white;
+    -fx-border-color: #000caa;
+    -fx-border-width: 10px;
+    -fx-text-box-border: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 1 3 1 3;
+    -fx-focus-color: #000caa;
+    -fx-faint-focus-color: transparent;
+}
+
+
+/* Customizing the MFXTableView */
+.mfx-table-view {
+    -fx-background-color: #A5A63b; /* Background color */
+    -fx-text-fill: white;
+}
+
+/* Customizing the table cell */
+.mfx-table-cell {
+    -fx-background-color: derive(#A5A63b, 50%); /* Cell background color */
+}
+
+/* Customizing the header */
+.mfx-table-header {
+    -fx-background-color: #cccccc; /* Header background color */
+    -fx-text-fill: white; /* Header text color */
+}
+
+
+.mfx-table-row {
+    -fx-background-color: derive(#A5A63b, 25%); /* Background color for even rows */
+    -fx-text-fill: white;
+}
+
+.mfx-table-row .mfx-table-row-cell {
+    -fx-text-fill: white;
+}
+
+.mfx-table-column {
+    -fx-text-fill: white;
+}
+
+
+.toggleBtn {
+    -fx-background-color: linear-gradient(to top, #FFA500, #aaaaaa);
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.toggleBtn:hover {
+    -fx-cursor: hand;
+}
+

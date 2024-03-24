@@ -1,4 +1,41 @@
-@import 'app_colors.css'
+@import 'app_colors.css';
+
+.always-on-top-icon {
+	-fx-opacity: 0.5;
+}
+
+.always-on-top-icon:hover {
+    -fx-cursor: hand;
+	-fx-opacity: 1.0;
+}
+
+.always-on-top-icon:always-on-top {
+	-fx-opacity: 1.0;
+}
+
+.background {
+    -fx-fill: my_blue;
+    -fx-arc-height: 30px;
+    -fx-arc-width: 30px;
+    -fx-effect: dropShadow(three-pass-box, #000000, 5, 0, 0, 0);
+}
+
+.holder {
+    -fx-fill: my_blue;
+    -fx-effect: dropShadow(three-pass-box, #000000, 10, 0, 0, 0);
+}
+
+.holder:hover {
+    -fx-cursor: move;
+}
+
+.tab {
+    -fx-cursor: move;
+}
+
+.trans_anchor {
+    -fx-background-color: transparent;
+}
 
 #schedChoices {
     -fx-border-color: transparent;
@@ -93,4 +130,47 @@
     -fx-faint-focus-color: transparent;
 }
 
+
+/* Customizing the MFXTableView */
+.mfx-table-view {
+    -fx-background-color: #05263b; /* Background color */
+    -fx-text-fill: white;
+}
+
+/* Customizing the table cell */
+.mfx-table-cell {
+    -fx-background-color: derive(#05263b, 50%); /* Cell background color */
+}
+
+/* Customizing the header */
+.mfx-table-header {
+    -fx-background-color: #cccccc; /* Header background color */
+    -fx-text-fill: white; /* Header text color */
+}
+
+
+.mfx-table-row {
+    -fx-background-color: derive(#05263b, 25%); /* Background color for even rows */
+    -fx-text-fill: white;
+}
+
+.mfx-table-row .mfx-table-row-cell {
+    -fx-text-fill: white;
+}
+
+.mfx-table-column {
+    -fx-text-fill: white;
+}
+
+
+
+.toggleBtn {
+    -fx-background-color: linear-gradient(to top, #222222, #aaaaaa);
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+}
+
+.toggleBtn:hover {
+    -fx-cursor: hand;
+}
 

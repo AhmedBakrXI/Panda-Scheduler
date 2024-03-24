@@ -8,6 +8,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.AreaChart?>
 <?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -23,10 +24,10 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" stylesheets="@css/init_style.css, @css/main-style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
     <children>
-        <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
-        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="7.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1257.0" />
+        <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="#125b9e" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
+        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="13.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1251.0" />
         <VBox prefHeight="719.0" prefWidth="1288.0">
             <children>
                 <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1281.0" spacing="10.0">
@@ -35,9 +36,9 @@
                     </padding>
                     <AnchorPane styleClass="tab">
                         <children>
-                            <StackPane layoutX="85.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="1092.0" styleClass="tab">
+                            <StackPane layoutX="280.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="858.0" styleClass="tab">
                                 <children>
-                                    <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="413.0" />
+                                    <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="608.0" />
                                 </children>
                             </StackPane>
                             <ImageView fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
@@ -53,6 +54,15 @@
                                     <Font size="18.0" />
                                 </font>
                             </Text>
+                     <Button fx:id="toggleBtn" contentDisplay="GRAPHIC_ONLY" layoutX="239.0" layoutY="9.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="35.0" prefWidth="36.0" styleClass="toggleBtn" text="Button">
+                        <graphic>
+                           <ImageView fx:id="dayNight" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@assets/moon.png" />
+                              </image>
+                           </ImageView>
+                        </graphic>
+                     </Button>
                         </children>
                     </AnchorPane>
                     <HBox alignment="CENTER" prefHeight="50.0" prefWidth="137.0" spacing="8.0">
@@ -116,8 +126,11 @@
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding></HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" />
-                  <HBox prefHeight="239.0" prefWidth="1288.0" spacing="30.0">
+                  <HBox fx:id="gantt" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="3.0">
+                     <padding>
+                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                     </padding></HBox>
+                  <HBox prefHeight="239.0" prefWidth="1218.0" spacing="30.0">
                      <children>
                                 <MFXTableView fx:id="processTable" footerVisible="false" prefHeight="214.0" prefWidth="675.0" />
                         <AreaChart fx:id="graph" prefHeight="218.0" prefWidth="545.0">
@@ -133,7 +146,7 @@
                         <Insets />
                      </VBox.margin>
                      <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="15.0" right="10.0" top="10.0" />
                      </padding>
                   </HBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
@@ -160,8 +173,8 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="99.0" prefWidth="1288.0" spacing="20.0">
                                     <children>
-                                        <MFXButton fx:id="addProcessBtn" styleClass="btn" onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" text="Add Process" />
-                                        <MFXButton fx:id="startSimBtn" styleClass="btn" onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" text="Start Simulation" />
+                                        <MFXButton fx:id="addProcessBtn" onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Add Process" />
+                                        <MFXButton fx:id="startSimBtn" onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Start Simulation" />
                                     </children>
                                 </HBox>
                             </children>

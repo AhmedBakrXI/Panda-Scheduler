@@ -1,29 +1,34 @@
 package com.os.cpu_scheduler.controller;
 
+import com.os.cpu_scheduler.MainApplication;
 import com.os.cpu_scheduler.adapter.ComboBoxAdapter;
 import com.os.cpu_scheduler.adapter.TableViewAdapter;
 import com.os.cpu_scheduler.process.Process;
 import com.os.cpu_scheduler.process.ProcessList;
 import com.os.cpu_scheduler.schedulers.*;
-import io.github.palexdev.materialfx.controls.MFXButton;
-import io.github.palexdev.materialfx.controls.MFXComboBox;
-import io.github.palexdev.materialfx.controls.MFXTableView;
-import io.github.palexdev.materialfx.controls.MFXTextField;
+import io.github.palexdev.materialfx.controls.*;
+import io.github.palexdev.materialfx.utils.ColorUtils;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -41,12 +46,20 @@ public class MainController implements Initializable {
     @FXML
     public TextField cpuStatus;
 
+    public Button toggleBtn;
+    public ImageView dayNight;
+
+    @FXML
+    private HBox gantt;
+
     private boolean isPriorityRemoved;
     private boolean isLiveSimulation;
 
     private double offsetX, offsetY;
     private ProcessList processList;
     private Scheduler scheduler;
+
+    private boolean lightMode;
 
     @FXML
     private HBox fieldsBox;
@@ -81,8 +94,15 @@ public class MainController implements Initializable {
     private ObservableList<Process> observableList;
     private TableViewAdapter tableViewAdapter;
 
+    private List<Color> colors;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Platform.runLater(() -> {
+            Scene scene = window.getScene();
+            scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/main-style.css").toExternalForm());
+        });
+
         processList = new ProcessList();
         processList.addProcess(new Process(0, 0, "null", -1));
         observableList = FXCollections.observableArrayList(
@@ -95,6 +115,15 @@ public class MainController implements Initializable {
 
         graph.getXAxis().setLabel("Time (sec)");
         graph.getYAxis().setLabel("Remaining Time (sec)");
+
+        int numberOfColors = 20;
+        colors = new ArrayList<>();
+        for (int i = 0; i < numberOfColors; i++) {
+            double hue = (i * 360.0 / numberOfColors); // Calculate hue for smooth transition
+            Color color = Color.hsb(hue, 0.5, 0.5); // Max saturation and brightness
+            colors.add(color);
+        }
+
     }
 
     private void setupTable() {
@@ -255,6 +284,28 @@ public class MainController implements Initializable {
                         .getData()
                         .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
                                 processList.getProcesses().get(idx).getRemainingTime()));
+
+                if (scheduler.isIdle()) {
+                    cpuStatus.setText("IDLE");
+                } else {
+                    cpuStatus.setText(processList
+                            .getProcesses()
+                            .get(scheduler.getCurrentExecutingProcessIdx())
+                            .getName());
+
+                    Rectangle rectangle = new Rectangle(20, 50);
+                    rectangle.setFill(colors.get(
+                            scheduler.getCurrentExecutingProcessIdx()
+                    ));
+                    Text text = new Text(processList
+                            .getProcesses()
+                            .get(scheduler.getCurrentExecutingProcessIdx())
+                            .getName());
+                    text.setFill(Color.WHITE);
+
+                    StackPane pane = new StackPane(rectangle, text);
+                    gantt.getChildren().add(pane);
+                }
             } else {
                 for (var series : seriesList) {
                     series.getData().remove(0);
@@ -294,7 +345,25 @@ public class MainController implements Initializable {
                         .getProcesses()
                         .get(scheduler.getCurrentExecutingProcessIdx())
                         .getName());
+
+                Platform.runLater(() -> {
+                    Rectangle rectangle = new Rectangle(20, 50);
+                    rectangle.setFill(colors.get(
+                            scheduler.getCurrentExecutingProcessIdx()
+                    ));
+                    Text text = new Text(processList
+                            .getProcesses()
+                            .get(scheduler.getCurrentExecutingProcessIdx())
+                            .getName());
+                    text.setFill(Color.WHITE);
+
+                    StackPane pane = new StackPane(rectangle, text);
+                    gantt.getChildren().add(pane);
+                });
+
             }
+
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -324,4 +393,18 @@ public class MainController implements Initializable {
     }
 
 
+    public void toggleMode() {
+        Scene scene = dayNight.getScene();
+        if (!lightMode) {
+            lightMode = true;
+            dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/sun.png")));
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/light-style.css").toExternalForm());
+        } else {
+            lightMode = false;
+            dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/moon.png")));
+            scene.getStylesheets().clear();
+            scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/main-style.css").toExternalForm());
+        }
+    }
 }

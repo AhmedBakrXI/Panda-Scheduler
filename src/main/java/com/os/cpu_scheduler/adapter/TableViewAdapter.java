@@ -5,6 +5,7 @@ import io.github.palexdev.materialfx.controls.MFXTableColumn;
 import io.github.palexdev.materialfx.controls.MFXTableView;
 import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.collections.ObservableList;
+import javafx.geometry.Pos;
 
 public class TableViewAdapter {
     private MFXTableView<Process> tableView;
@@ -21,10 +22,25 @@ public class TableViewAdapter {
         MFXTableColumn<Process> burstCol = new MFXTableColumn<>("Burst Time");
         MFXTableColumn<Process> remainingCol = new MFXTableColumn<>("Remaining Time");
 
-        nameCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getName));
-        arrivalCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getArrivalTime));
-        burstCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getBurstTime));
-        remainingCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getRemainingTime));
+        nameCol.setRowCellFactory(person -> new MFXTableRowCell<>(Process::getName) {{
+            setAlignment(Pos.CENTER);
+        }});
+        nameCol.setAlignment(Pos.CENTER);
+
+        arrivalCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getArrivalTime) {{
+            setAlignment(Pos.CENTER);
+        }});
+        arrivalCol.setAlignment(Pos.CENTER);
+
+        burstCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getBurstTime) {{
+            setAlignment(Pos.CENTER);
+        }});
+        burstCol.setAlignment(Pos.CENTER);
+
+        remainingCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getRemainingTime) {{
+            setAlignment(Pos.CENTER);
+        }});
+        remainingCol.setAlignment(Pos.CENTER);
 
         tableView.getTableColumns().addAll(nameCol, arrivalCol, burstCol);
 
@@ -44,7 +60,11 @@ public class TableViewAdapter {
 
     public void addPriorityColumn() {
         MFXTableColumn<Process> priorityCol = new MFXTableColumn<>("Priority");
-        priorityCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getPriority));
+        priorityCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getPriority) {{
+            setAlignment(Pos.CENTER);
+        }});
+        priorityCol.setAlignment(Pos.CENTER);
+
         tableView.getTableColumns().add(priorityCol);
     }
 
