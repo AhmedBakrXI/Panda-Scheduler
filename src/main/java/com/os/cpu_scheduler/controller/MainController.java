@@ -19,6 +19,7 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Alert;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -30,6 +31,15 @@ import java.util.*;
 
 public class MainController implements Initializable {
 
+
+    @FXML
+    public TextField turnaroundText;
+
+    @FXML
+    public TextField waitingText;
+
+    @FXML
+    public TextField cpuStatus;
 
     private boolean isPriorityRemoved;
     private boolean isLiveSimulation;
@@ -276,6 +286,15 @@ public class MainController implements Initializable {
                     .getData()
                     .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
                             processList.getProcesses().get(idx).getRemainingTime())));
+
+            if (scheduler.isIdle()) {
+                cpuStatus.setText("IDLE");
+            } else {
+                cpuStatus.setText(processList
+                        .getProcesses()
+                        .get(scheduler.getCurrentExecutingProcessIdx())
+                        .getName());
+            }
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -286,6 +305,8 @@ public class MainController implements Initializable {
         for (var series : seriesList) {
             series.getData().remove(0);
         }
+        cpuStatus.setText("IDLE");
+
         startSimBtn.setDisable(false);
     }
 

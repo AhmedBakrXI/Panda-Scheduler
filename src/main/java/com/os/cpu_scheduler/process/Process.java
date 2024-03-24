@@ -6,6 +6,7 @@ public class Process {
     private int burstTime;
     private String name;
     private int remainingTime;
+
     private int waitingTime = 0;
     private int turnaroundTime = 0;
     private int priority = 1;

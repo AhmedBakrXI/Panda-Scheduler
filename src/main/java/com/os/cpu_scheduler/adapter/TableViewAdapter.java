@@ -21,7 +21,6 @@ public class TableViewAdapter {
         MFXTableColumn<Process> burstCol = new MFXTableColumn<>("Burst Time");
         MFXTableColumn<Process> remainingCol = new MFXTableColumn<>("Remaining Time");
 
-
         nameCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getName));
         arrivalCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getArrivalTime));
         burstCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getBurstTime));
