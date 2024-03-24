@@ -166,11 +166,18 @@
 
 .toggleBtn {
     -fx-background-color: linear-gradient(to top, #222222, #aaaaaa);
-    -fx-background-radius: 30;
-    -fx-border-radius: 30;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
 }
 
 .toggleBtn:hover {
     -fx-cursor: hand;
 }
 
+.scroll-pane{
+   -fx-background-color:transparent;
+}
+
+.hbox {
+    -fx-background-color:transparent;
+}

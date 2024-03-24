@@ -8,7 +8,9 @@ import com.os.cpu_scheduler.process.ProcessList;
 import com.os.cpu_scheduler.schedulers.*;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.utils.ColorUtils;
+import io.github.palexdev.materialfx.utils.ScrollUtils;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,10 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -30,12 +29,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.*;
 
 public class MainController implements Initializable {
 
+
+    public MFXScrollPane scroll;
+    @FXML
+    private ImageView clipImg;
 
     @FXML
     public TextField turnaroundText;
@@ -98,6 +102,16 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ScrollUtils.addSmoothScrolling(scroll);
+
+        gantt.setStyle("-fx-background-color: #303030;");
+
+        Rectangle rectangle = new Rectangle(clipImg.getFitWidth(), clipImg.getFitHeight() - 15);
+        rectangle.setArcHeight(50);
+        rectangle.setArcWidth(50);
+        clipImg.setClip(rectangle);
+
         Platform.runLater(() -> {
             Scene scene = window.getScene();
             scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/main-style.css").toExternalForm());
@@ -402,11 +416,21 @@ public class MainController implements Initializable {
             dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/sun.png")));
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/light-style.css").toExternalForm());
+
+            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), toggleBtn);
+            translateTransition.setToX(clipImg.getFitWidth() - 45);
+            translateTransition.play();
+            clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/lightBackground.jpg")));
         } else {
             lightMode = false;
             dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/moon.png")));
             scene.getStylesheets().clear();
             scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/main-style.css").toExternalForm());
+
+            TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), toggleBtn);
+            translateTransition.setToX(0);
+            translateTransition.play();
+            clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/nightBackground.jpg")));
         }
     }
 }

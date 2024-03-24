@@ -2,6 +2,7 @@
 
 <?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import io.github.palexdev.materialfx.controls.MFXComboBox?>
+<?import io.github.palexdev.materialfx.controls.MFXScrollPane?>
 <?import io.github.palexdev.materialfx.controls.MFXTableView?>
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
@@ -13,6 +14,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.GaussianBlur?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -36,12 +38,33 @@
                     </padding>
                     <AnchorPane styleClass="tab">
                         <children>
-                            <StackPane layoutX="280.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="50.0" prefWidth="892.0" styleClass="tab">
+                            <StackPane layoutX="280.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="63.0" prefWidth="892.0" styleClass="tab">
                                 <children>
                                     <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#3ca1ff" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="608.0" />
                                 </children>
                             </StackPane>
-                            <ImageView fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                     <AnchorPane layoutX="233.0" layoutY="2.0" prefHeight="53.0" prefWidth="90.0">
+                        <children>
+                           <ImageView fx:id="clipImg" fitHeight="50.0" fitWidth="89.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                              <image>
+                                 <Image url="@assets/nightBackground.jpg" />
+                              </image>
+                              <effect>
+                                 <GaussianBlur radius="3.0" />
+                              </effect>
+                           </ImageView>
+                           <Button fx:id="toggleBtn" contentDisplay="GRAPHIC_ONLY" layoutY="11.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="30.0" prefWidth="30.0" styleClass="toggleBtn" text="Button">
+                              <graphic>
+                                 <ImageView fx:id="dayNight" fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                       <Image url="@assets/moon.png" />
+                                    </image>
+                                 </ImageView>
+                              </graphic>
+                           </Button>
+                        </children>
+                     </AnchorPane>
+                            <ImageView fx:id="btnImg" fitHeight="38.0" fitWidth="73.0" layoutX="18.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
                                     <Image url="@assets/Panda.png" />
                                 </image>
@@ -54,18 +77,9 @@
                                     <Font size="18.0" />
                                 </font>
                             </Text>
-                     <Button fx:id="toggleBtn" contentDisplay="GRAPHIC_ONLY" layoutX="239.0" layoutY="9.0" mnemonicParsing="false" onAction="#toggleMode" prefHeight="35.0" prefWidth="36.0" styleClass="toggleBtn" text="Button">
-                        <graphic>
-                           <ImageView fx:id="dayNight" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                              <image>
-                                 <Image url="@assets/moon.png" />
-                              </image>
-                           </ImageView>
-                        </graphic>
-                     </Button>
                         </children>
                     </AnchorPane>
-                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="137.0" spacing="8.0">
+                    <HBox alignment="CENTER" prefHeight="50.0" prefWidth="114.0" spacing="8.0">
                         <children>
                             <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
                                 <color>
@@ -88,9 +102,9 @@
                         </HBox.margin>
                     </HBox>
                 </HBox>
-                <VBox prefHeight="674.0" prefWidth="1288.0">
+                <VBox prefHeight="657.0" prefWidth="1327.0">
                     <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+                  <HBox alignment="CENTER" prefHeight="83.0" prefWidth="1288.0" spacing="30.0">
                      <children>
                         <Label text="CPU STATUS" textFill="WHITE">
                            <font>
@@ -135,17 +149,22 @@
                      <padding>
                         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                      </padding></HBox>
-                  <HBox fx:id="gantt" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="3.0">
-                     <padding>
-                        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
-                     </padding></HBox>
+                  <MFXScrollPane fx:id="scroll" thumbColor="#87878700" thumbHoverColor="#ffffff00" trackColor="#404040c2" vbarPolicy="NEVER">
+                     <content>
+                        <HBox fx:id="gantt" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="1285.0" spacing="3.0">
+                           <padding>
+                              <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+                           </padding>
+                        </HBox>
+                     </content>
+                  </MFXScrollPane>
                   <HBox prefHeight="239.0" prefWidth="1218.0" spacing="30.0">
                      <children>
                                 <MFXTableView fx:id="processTable" footerVisible="false" prefHeight="214.0" prefWidth="675.0">
                            <effect>
                               <DropShadow />
                            </effect></MFXTableView>
-                        <AreaChart fx:id="graph" prefHeight="218.0" prefWidth="545.0">
+                        <AreaChart fx:id="graph" prefHeight="218.0" prefWidth="535.0">
                           <xAxis>
                             <NumberAxis side="BOTTOM" />
                           </xAxis>

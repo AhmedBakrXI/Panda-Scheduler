@@ -173,3 +173,10 @@
     -fx-cursor: hand;
 }
 
+.scrollpane{
+   -fx-background-color:transparent;
+}
+
+.hbox {
+    -fx-background-color:transparent;
+}
