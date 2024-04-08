@@ -327,7 +327,7 @@ public class MainController implements Initializable {
                     text.setFill(Color.WHITE);
 
                     StackPane pane = new StackPane(rectangle, text);
-                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime()));
+                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
                     time.setFill(Color.SKYBLUE);
                     VBox box = new VBox(pane, time);
                     gantt.getChildren().add(box);
@@ -390,7 +390,7 @@ public class MainController implements Initializable {
                     text.setFill(Color.WHITE);
 
                     StackPane pane = new StackPane(rectangle, text);
-                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime()));
+                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
                     time.setFill(Color.SKYBLUE);
                     VBox box = new VBox(pane, time);
                     gantt.getChildren().add(box);
