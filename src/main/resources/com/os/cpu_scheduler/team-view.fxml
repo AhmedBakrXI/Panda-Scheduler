@@ -63,7 +63,7 @@
             <right>
                 <ImageView fx:id="preview" fitHeight="366.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                     <image>
-                        <Image url="@../../../../../../../../Users/user/Downloads/yu-gi-oh-single-card-ultra-rare-obelisk-the-tormentor-pre-order-ships-november-8__48134.jpg" />
+                        <Image url="@cards/obelisk.jpg" />
                     </image>
                     <effect>
                         <Reflection fraction="0.44" topOpacity="0.2" />
@@ -131,7 +131,7 @@
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f2f2f" height="410.0" layoutX="569.0" layoutY="41.0" stroke="TRANSPARENT" strokeType="INSIDE" width="121.0" />
                         <ImageView fitHeight="240.0" fitWidth="161.0" layoutX="570.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../../../../../../../Users/user/Downloads/yu_gi_oh__sevens_duel_disk__standard__by_golden_eyes10_de0q286-250t%20(1).png" />
+                                <Image url="@assets/disk.png" />
                             </image>
                         </ImageView>
                     </children>
