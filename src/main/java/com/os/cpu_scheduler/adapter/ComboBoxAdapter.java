@@ -23,6 +23,10 @@ public class ComboBoxAdapter {
         comboBox.setItems(choicesList);
     }
 
+    public void clear() {
+        comboBox.getSelectionModel().clearSelection();
+    }
+
     public void addItem(String item) {
         choicesList.add(item);
     }

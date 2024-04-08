@@ -165,7 +165,7 @@
 
 
 .toggleBtn {
-    -fx-background-color: linear-gradient(to top, #222222, #aaaaaa);
+    -fx-background-color: linear-gradient(to top, #333333, #000000);
     -fx-background-radius: 50;
     -fx-border-radius: 50;
 }

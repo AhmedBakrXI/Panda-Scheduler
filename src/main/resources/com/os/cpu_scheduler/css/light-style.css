@@ -14,7 +14,7 @@
 }
 
 .background {
-    -fx-fill: white;
+    -fx-fill: #F5F5F5;
     -fx-arc-height: 30px;
     -fx-arc-width: 30px;
     -fx-effect: dropShadow(three-pass-box, #000000, 5, 0, 0, 0);
@@ -42,7 +42,7 @@
     -fx-border-radius: 30;
     -fx-background-color: white;
     -fx-background-radius: 30;
-    -fx-text-fill: derive(my_blue, 25%);
+    -fx-text-fill: derive(my_green, 25%);
     -fx-padding: 3 3 3 6;
     -fx-background-insets: 4 0 0 -3;
     -fx-focus-color: transparent;
@@ -56,11 +56,11 @@
 
 #schedChoices .floating-text {
     -fx-background-color: transparent;
-    -fx-text-fill: white;
+    -fx-text-fill: my_green;
 }
 
 #schedChoices .caret .mfx-font-icon {
-    -mfx-color: #000caa;
+    -mfx-color: my_green;
     -fx-text-fill: white;
 }
 
@@ -69,14 +69,14 @@
 }
 
 #schedChoices .virtual-flow {
-    -track-color: derive(my_blue, 90%);
-    -thumb-color: derive(my_blue, 50%);
-    -thumb-hover-color: derive(#000caa, 25%);
+    -track-color: derive(my_green, 90%);
+    -thumb-color: derive(my_green, 50%);
+    -thumb-hover-color: derive(my_green, 25%);
 }
 
 #schedChoices .virtual-flow .mfx-combo-box-cell:hover {
-    -fx-background-color: derive(#000caa, 70%);
-    -fx-text-fill: white;
+    -fx-background-color: derive(my_green, 70%);
+    -fx-text-fill: my_green;
 }
 
 .chart {
@@ -106,8 +106,8 @@
     -fx-max-width: 200px;
     -fx-background-radius: 20;
     -fx-border-radius: 60;
-    -fx-background-color: white;
-    -fx-border-color: #ff0caa;
+    -fx-background-color: #FF9800;
+    -fx-border-color: white;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-padding: 1 3 1 3;
@@ -120,8 +120,8 @@
     -fx-max-width: 200px;
     -fx-background-radius: 20;
     -fx-border-radius: 50;
-    -fx-background-color: white;
-    -fx-border-color: #ff0caa;
+    -fx-background-color: transparent;
+    -fx-border-color: my_green;
     -fx-border-width: 10px;
     -fx-text-box-border: transparent;
     -fx-background-insets: 0;
@@ -164,7 +164,7 @@
 
 
 .toggleBtn {
-    -fx-background-color: linear-gradient(to top, #FFA500, #aaaaaa);
+    -fx-background-color: linear-gradient(to top, #FF8C00, #FFA500);
     -fx-background-radius: 30;
     -fx-border-radius: 30;
 }

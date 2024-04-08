@@ -14,6 +14,7 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
@@ -25,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -35,7 +37,8 @@ import java.net.URL;
 import java.util.*;
 
 public class MainController implements Initializable {
-
+    @FXML
+    private Text title;
 
     public MFXScrollPane scroll;
     @FXML
@@ -213,6 +216,8 @@ public class MainController implements Initializable {
             processList.addProcess(process);
             observableList.add(process);
             processTable.update();
+            System.out.println(observableList);
+
         } catch (NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid inputs");
@@ -222,48 +227,50 @@ public class MainController implements Initializable {
 
     public void selectScheduler() {
         String schedulerName = schedChoices.getSelectedItem();
-        if (schedulerName.equals(SchedulerTypes.FCFS.getDescription())) {
-            scheduler = new FCFS(processList);
-            fieldsBox.getChildren().remove(priority);
-            tableViewAdapter.removePriorityColumn();
-            isPriorityRemoved = true;
-        } else if (schedulerName.equals(SchedulerTypes.SJF_PREEMPTIVE.getDescription())) {
-            scheduler = new SJF(processList);
-            scheduler.setPreemptive(true);
-            fieldsBox.getChildren().remove(priority);
-            tableViewAdapter.removePriorityColumn();
-            isPriorityRemoved = true;
-        } else if (schedulerName.equals(SchedulerTypes.SJF_NON_PREEMPTIVE.getDescription())) {
-            scheduler = new SJF(processList);
-            scheduler.setPreemptive(false);
-            fieldsBox.getChildren().remove(priority);
-            tableViewAdapter.removePriorityColumn();
-            isPriorityRemoved = true;
-        } else if (schedulerName.equals(SchedulerTypes.PRIORITY_PREEMPTIVE.getDescription())) {
-            scheduler = new Priority(processList);
-            scheduler.setPreemptive(true);
-            if (isPriorityRemoved) {
-                tableViewAdapter.addPriorityColumn();
-                fieldsBox.getChildren().add(priority);
-                isPriorityRemoved = false;
+        if (schedulerName != null) {
+            if (schedulerName.equals(SchedulerTypes.FCFS.getDescription())) {
+                scheduler = new FCFS(processList);
+                fieldsBox.getChildren().remove(priority);
+                tableViewAdapter.removePriorityColumn();
+                isPriorityRemoved = true;
+            } else if (schedulerName.equals(SchedulerTypes.SJF_PREEMPTIVE.getDescription())) {
+                scheduler = new SJF(processList);
+                scheduler.setPreemptive(true);
+                fieldsBox.getChildren().remove(priority);
+                tableViewAdapter.removePriorityColumn();
+                isPriorityRemoved = true;
+            } else if (schedulerName.equals(SchedulerTypes.SJF_NON_PREEMPTIVE.getDescription())) {
+                scheduler = new SJF(processList);
+                scheduler.setPreemptive(false);
+                fieldsBox.getChildren().remove(priority);
+                tableViewAdapter.removePriorityColumn();
+                isPriorityRemoved = true;
+            } else if (schedulerName.equals(SchedulerTypes.PRIORITY_PREEMPTIVE.getDescription())) {
+                scheduler = new Priority(processList);
+                scheduler.setPreemptive(true);
+                if (isPriorityRemoved) {
+                    tableViewAdapter.addPriorityColumn();
+                    fieldsBox.getChildren().add(priority);
+                    isPriorityRemoved = false;
+                }
+            } else if (schedulerName.equals(SchedulerTypes.PRIORITY_NON_PREEMPTIVE.getDescription())) {
+                scheduler = new Priority(processList);
+                scheduler.setPreemptive(false);
+                if (isPriorityRemoved) {
+                    tableViewAdapter.addPriorityColumn();
+                    fieldsBox.getChildren().add(priority);
+                    isPriorityRemoved = false;
+                }
+            } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
+                scheduler = new RoundRobin(processList);
+                if (isPriorityRemoved) {
+                    tableViewAdapter.addPriorityColumn();
+                    fieldsBox.getChildren().add(priority);
+                    isPriorityRemoved = false;
+                }
             }
-        } else if (schedulerName.equals(SchedulerTypes.PRIORITY_NON_PREEMPTIVE.getDescription())) {
-            scheduler = new Priority(processList);
-            scheduler.setPreemptive(false);
-            if (isPriorityRemoved) {
-                tableViewAdapter.addPriorityColumn();
-                fieldsBox.getChildren().add(priority);
-                isPriorityRemoved = false;
-            }
-        } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
-            scheduler = new RoundRobin(processList);
-            if (isPriorityRemoved) {
-                tableViewAdapter.addPriorityColumn();
-                fieldsBox.getChildren().add(priority);
-                isPriorityRemoved = false;
-            }
+            setEditable(true);
         }
-        setEditable(true);
     }
 
     private void setEditable(boolean editable) {
@@ -318,7 +325,10 @@ public class MainController implements Initializable {
                     text.setFill(Color.WHITE);
 
                     StackPane pane = new StackPane(rectangle, text);
-                    gantt.getChildren().add(pane);
+                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime()));
+                    time.setFill(Color.SKYBLUE);
+                    VBox box = new VBox(pane, time);
+                    gantt.getChildren().add(box);
                 }
             } else {
                 for (var series : seriesList) {
@@ -329,8 +339,12 @@ public class MainController implements Initializable {
                 alert.setHeaderText("Non Live Simulation Ended Successfully");
                 alert.show();
                 addProcessBtn.setDisable(false);
+                waitingText.setText(String.valueOf(processList.avgWaitingTime()));
+                turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
             }
         }
+
+
     }
 
 
@@ -374,7 +388,10 @@ public class MainController implements Initializable {
                     text.setFill(Color.WHITE);
 
                     StackPane pane = new StackPane(rectangle, text);
-                    gantt.getChildren().add(pane);
+                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime()));
+                    time.setFill(Color.SKYBLUE);
+                    VBox box = new VBox(pane, time);
+                    gantt.getChildren().add(box);
                 });
 
             }
@@ -393,6 +410,8 @@ public class MainController implements Initializable {
         cpuStatus.setText("IDLE");
 
         startSimBtn.setDisable(false);
+        waitingText.setText(String.valueOf(processList.avgWaitingTime()));
+        turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
     }
 
     public void checkLiveSimulation() {
@@ -418,9 +437,10 @@ public class MainController implements Initializable {
             scene.getStylesheets().add(getClass().getResource("/com/os/cpu_scheduler/css/light-style.css").toExternalForm());
 
             TranslateTransition translateTransition = new TranslateTransition(Duration.millis(200), toggleBtn);
-            translateTransition.setToX(clipImg.getFitWidth() - 45);
+            translateTransition.setToX(clipImg.getFitWidth() - 40);
             translateTransition.play();
             clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/lightBackground.jpg")));
+            title.setFill(Color.SADDLEBROWN);
         } else {
             lightMode = false;
             dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/moon.png")));
@@ -431,6 +451,35 @@ public class MainController implements Initializable {
             translateTransition.setToX(0);
             translateTransition.play();
             clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/nightBackground.jpg")));
+            title.setFill(Color.WHITE);
         }
+    }
+
+    public void reset() {
+        processList = new ProcessList();
+        processList.addProcess(new Process(0, 0, "null", -1));
+        observableList = FXCollections.observableArrayList(
+                new Process(0, 0, "null", -1)
+        );
+        tableViewAdapter.clearTable();
+        processList.getProcesses().clear();
+        processTable.setItems(observableList);
+        observableList.remove(0);
+        processTable.update();
+
+
+
+
+        ComboBoxAdapter adapter = new ComboBoxAdapter(schedChoices);
+        adapter.clear();
+        adapter.initComboBox(getChoicesList());
+        setEditable(false);
+
+        seriesList.clear();
+        graph.getData().clear();
+        gantt.getChildren().clear();
+    }
+
+    public void viewTeam() {
     }
 }

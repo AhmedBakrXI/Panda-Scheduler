@@ -72,7 +72,7 @@
                                     <DropShadow />
                                 </effect>
                             </ImageView>
-                            <Text fill="WHITE" layoutX="71.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panda Scheduler" wrappingWidth="138.40341186523438">
+                            <Text fx:id="title" fill="WHITE" layoutX="71.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Panda Scheduler" wrappingWidth="138.40341186523438">
                                 <font>
                                     <Font size="18.0" />
                                 </font>
@@ -209,6 +209,15 @@
                                     <children>
                                         <MFXButton fx:id="addProcessBtn" onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Add Process" />
                                         <MFXButton fx:id="startSimBtn" onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Start Simulation" />
+                              <MFXButton contentDisplay="GRAPHIC_ONLY" onAction="#reset" rippleColor="#bdbdbd00" styleClass="btn">
+                                 <graphic>
+                                    <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@assets/refresh.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </MFXButton>
                                     </children>
                                 </HBox>
                             </children>
@@ -220,5 +229,14 @@
                 </VBox>
             </children>
         </VBox>
+      <MFXButton contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="640.0" onAction="#viewTeam" rippleColor="#bdbdbd00" styleClass="btn">
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@assets/team.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </MFXButton>
     </children>
 </AnchorPane>

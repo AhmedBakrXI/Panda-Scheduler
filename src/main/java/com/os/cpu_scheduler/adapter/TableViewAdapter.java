@@ -7,9 +7,12 @@ import io.github.palexdev.materialfx.controls.cell.MFXTableRowCell;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 
+import java.util.stream.IntStream;
+
 public class TableViewAdapter {
     private MFXTableView<Process> tableView;
     private ObservableList<Process> list;
+
 
     public TableViewAdapter(MFXTableView<Process> tableView, ObservableList<Process> list) {
         this.tableView = tableView;
@@ -66,9 +69,21 @@ public class TableViewAdapter {
         priorityCol.setAlignment(Pos.CENTER);
 
         tableView.getTableColumns().add(priorityCol);
+
     }
 
     public void removePriorityColumn() {
-        tableView.getTableColumns().remove(3);
+        int index = IntStream.range(0, tableView.getTableColumns().size())
+                .filter(i -> tableView.getTableColumns()
+                        .get(i)
+                        .getText()
+                        .equals("Priority"))
+                .findFirst()
+                .orElse(-1);
+        if (index != -1) {
+            tableView
+                    .getTableColumns()
+                    .remove(index);
+        }
     }
 }
