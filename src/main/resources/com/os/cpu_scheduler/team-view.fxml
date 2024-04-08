@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+
+<AnchorPane prefHeight="475.0" prefWidth="1000.0" stylesheets="@css/init_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.TeamController">
+    <children>
+        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2f2f2f" height="475.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1000.0">
+            <effect>
+                <DropShadow />
+            </effect></Rectangle>
+        <Line endX="578.1666259765625" endY="110.4928970336914" startX="578.1666870117188" startY="424.29998779296875" stroke="WHITE" />
+        <BorderPane prefHeight="475.0" prefWidth="1000.0">
+            <top>
+                <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" layoutY="6.0" prefHeight="3.0" prefWidth="880.0" spacing="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <padding>
+                        <Insets right="10.0" />
+                    </padding>
+                    <AnchorPane styleClass="tab">
+                        <children>
+                            <StackPane layoutX="-57.0" layoutY="-8.0" onMouseDragged="#moveWindow" onMousePressed="#getXYOffsets" prefHeight="32.0" prefWidth="806.0" styleClass="tab">
+                                <children>
+                                    <Rectangle arcHeight="10.0" arcWidth="10.0" fill="#2f2f2f" height="7.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="holder" width="413.0">
+                                        <effect>
+                                            <DropShadow />
+                                        </effect>
+                                        <cursor>
+                                            <Cursor fx:constant="MOVE" />
+                                        </cursor></Rectangle>
+                                </children>
+                            </StackPane>
+                        </children>
+                    </AnchorPane>
+                    <MFXFontIcon fx:id="alwaysOnTopIcon" description="fas-circle" onMouseClicked="#minimize" size="15.0" styleClass="always-on-top-icon">
+                        <color>
+                            <Color red="0.27843138575553894" green="0.7647058963775635" blue="0.8274509906768799" />
+                        </color>
+                    </MFXFontIcon>
+                    <MFXFontIcon fx:id="minimizeIcon" description="fas-circle" onMouseClicked="#maximize" size="15.0" styleClass="always-on-top-icon">
+                        <color>
+                            <Color red="0.95686274766922" green="0.46666666865348816" blue="0.2078431397676468" />
+                        </color>
+                    </MFXFontIcon>
+                    <MFXFontIcon fx:id="closeIcon" description="fas-circle" onMouseClicked="#exit" size="15.0" styleClass="always-on-top-icon">
+                        <color>
+                            <Color red="0.7098039388656616" green="0.2235294133424759" blue="0.4901960790157318" />
+                        </color>
+                    </MFXFontIcon>
+                </HBox>
+            </top>
+            <right>
+                <ImageView fx:id="preview" fitHeight="366.0" fitWidth="270.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+                    <image>
+                        <Image url="@../../../../../../../../Users/user/Downloads/yu-gi-oh-single-card-ultra-rare-obelisk-the-tormentor-pre-order-ships-november-8__48134.jpg" />
+                    </image>
+                    <effect>
+                        <Reflection fraction="0.44" topOpacity="0.2" />
+                    </effect>
+                </ImageView>
+            </right>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+            <center>
+                <AnchorPane prefHeight="452.0" prefWidth="606.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <AnchorPane fx:id="cardsPane" layoutY="138.0">
+                            <children>
+                                <ImageView fx:id="card" fitHeight="150.0" fitWidth="162.0" layoutX="9.0" layoutY="9.0" onMouseClicked="#display1" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@cards/ra.jpg" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </ImageView>
+                                <ImageView fx:id="card1" fitHeight="150.0" fitWidth="162.0" layoutX="133.0" layoutY="15.0" onMouseClicked="#display2" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                    <image>
+                                        <Image url="@cards/slifer.jpg" />
+                                    </image>
+                                </ImageView>
+                                <ImageView fx:id="card2" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display3" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@cards/obelisk.jpg" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </ImageView>
+                                <ImageView fx:id="card3" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display4" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@cards/exodia.jpg" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </ImageView>
+                                <ImageView fx:id="card4" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display5" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@cards/darkMagician.jpg" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </ImageView>
+                                <ImageView fx:id="card5" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display6" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@cards/darkGirl.jpg" />
+                                    </image>
+                                    <effect>
+                                        <DropShadow />
+                                    </effect>
+                                </ImageView>
+                            </children>
+                        </AnchorPane>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#2f2f2f" height="410.0" layoutX="569.0" layoutY="41.0" stroke="TRANSPARENT" strokeType="INSIDE" width="121.0" />
+                        <ImageView fitHeight="240.0" fitWidth="161.0" layoutX="570.0" layoutY="103.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../../../../../../../Users/user/Downloads/yu_gi_oh__sevens_duel_disk__standard__by_golden_eyes10_de0q286-250t%20(1).png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </AnchorPane>
+            </center>
+        </BorderPane>
+    </children>
+</AnchorPane>

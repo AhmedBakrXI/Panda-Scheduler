@@ -7,15 +7,15 @@ import com.os.cpu_scheduler.process.Process;
 import com.os.cpu_scheduler.process.ProcessList;
 import com.os.cpu_scheduler.schedulers.*;
 import io.github.palexdev.materialfx.controls.*;
-import io.github.palexdev.materialfx.utils.ColorUtils;
 import io.github.palexdev.materialfx.utils.ScrollUtils;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
+import javafx.concurrent.Task;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
@@ -31,8 +31,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -468,8 +470,6 @@ public class MainController implements Initializable {
         processTable.update();
 
 
-
-
         ComboBoxAdapter adapter = new ComboBoxAdapter(schedChoices);
         adapter.clear();
         adapter.initComboBox(getChoicesList());
@@ -481,5 +481,17 @@ public class MainController implements Initializable {
     }
 
     public void viewTeam() {
+        Platform.runLater(() -> {
+            Stage stage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("team-view.fxml"));
+            try {
+                Scene scene = new Scene(fxmlLoader.load(), 1000, 475, Color.TRANSPARENT);
+                stage.setScene(scene);
+                stage.initStyle(StageStyle.TRANSPARENT);
+                stage.show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 }
