@@ -263,42 +263,42 @@ public class TeamController implements Initializable {
     public void display1() {
         name.setText("Name: Ahmed Mohammed Bakr");
         id.setText("ID: 2000037");
-        task.setText("Task: UI Design & Implementation");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/AHMED BAKR.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display2() {
         name.setText("Name: Fathy Abdelhady");
-        id.setText("ID: ??");
-        task.setText("Task: Backend Team Leader");
+        id.setText("ID: 2001152");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/FATHY ABDELHADY.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display3() {
         name.setText("Name: Omar Saleh");
-        id.setText("ID: ??");
-        task.setText("Task: el OS 4a5syan");
+        id.setText("ID: 2001993");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/OMAR SALEH.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display4() {
         name.setText("Name: Yousef Wael");
-        id.setText("ID: ??");
-        task.setText("Task: bta3 python we AI");
+        id.setText("ID: 2001430");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/YOUSEF ASHMAWY.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display5() {
         name.setText("Name: Marwan Wael");
-        id.setText("ID: ??");
-        task.setText("Task: El Baraka");
+        id.setText("ID: 2001244");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/MARWAN WAEL.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display6() {
         name.setText("Name: Ahmed Mohammed Ahmed Atwa");
-        id.setText("ID: ??");
-        task.setText("Task: SW Design");
+        id.setText("ID: 2001391");
+        task.setText(null);
         preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/AHMED ATWA.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
