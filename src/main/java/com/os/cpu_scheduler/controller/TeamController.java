@@ -114,7 +114,7 @@ public class TeamController implements Initializable {
         );
 
 
-        File audio = new File(getClass().getResource("/com/os/cpu_scheduler/audio/viking.wav").getPath().replaceAll("%20", " "));
+        File audio = new File(getClass().getResource("/com/os/cpu_scheduler/audio/background-music.wav").getPath().replaceAll("%20", " "));
         try {
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audio);
             Clip clip = AudioSystem.getClip();
