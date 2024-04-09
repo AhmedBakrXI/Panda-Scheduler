@@ -68,7 +68,7 @@
                <children>
                       <ImageView fx:id="preview" fitHeight="366.0" fitWidth="270.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
                           <image>
-                              <Image url="@cards/PANDA%20SCHEDULER.jpeg" />
+                              <Image url="@cards/PANDA SCHEDULER.jpeg" />
                           </image>
                           <effect>
                               <Reflection fraction="0.44" topOpacity="0.2" />
@@ -113,7 +113,7 @@
                                 </ImageView>
                                 <ImageView fx:id="card2" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display3" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@cards/OMAR%20SALEH.jpeg" />
+                                        <Image url="@cards/OMAR SALEH.jpeg" />
                                     </image>
                                     <effect>
                                         <DropShadow />
@@ -121,7 +121,7 @@
                                 </ImageView>
                                 <ImageView fx:id="card3" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display4" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@cards/YOUSEF%20ASHMAWY.jpeg" />
+                                        <Image url="@cards/YOUSEF ASHMAWY.jpeg" />
                                     </image>
                                     <effect>
                                         <DropShadow />
@@ -129,7 +129,7 @@
                                 </ImageView>
                                 <ImageView fx:id="card4" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display5" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@cards/MARWAN%20WAEL.jpeg" />
+                                        <Image url="@cards/MARWAN WAEL.jpeg" />
                                     </image>
                                     <effect>
                                         <DropShadow />
@@ -137,7 +137,7 @@
                                 </ImageView>
                                 <ImageView fx:id="card5" fitHeight="150.0" fitWidth="162.0" layoutX="19.0" layoutY="19.0" onMouseClicked="#display6" onMouseEntered="#stopAnimation" onMouseExited="#playAnimation" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@cards/AHMED%20ATWA.jpeg" />
+                                        <Image url="@cards/AHMED ATWA.jpeg" />
                                     </image>
                                     <effect>
                                         <DropShadow />
