@@ -17,7 +17,7 @@
 
 <AnchorPane prefHeight="475.0" prefWidth="1000.0" stylesheets="@css/init_style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.TeamController">
     <children>
-        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#2f2f2f" height="475.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1000.0">
+        <Rectangle fill="#2f2f2f" height="475.0" stroke="TRANSPARENT" strokeType="INSIDE" width="1000.0">
             <effect>
                 <DropShadow />
             </effect></Rectangle>

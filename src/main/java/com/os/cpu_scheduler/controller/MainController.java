@@ -13,7 +13,6 @@ import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -216,6 +215,8 @@ public class MainController implements Initializable {
 
             Process process = new Process(arrTime, burst, name, p);
             processList.addProcess(process);
+
+
             observableList.add(process);
             processTable.update();
             System.out.println(observableList);
@@ -297,16 +298,20 @@ public class MainController implements Initializable {
         } else {
             addProcessBtn.setDisable(true);
             if (!processList.isProcessesFinished()) {
-                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
-                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
+//                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
+//                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
+
                 scheduler.schedule();
                 processTable.update();
                 int idx = scheduler.getCurrentExecutingProcessIdx();
 
-                seriesList.get(idx)
+                int listIndex = processList.getProcesses().get(idx).getId();
+
+                Platform.runLater(() -> seriesList.get(listIndex)
                         .getData()
                         .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
-                                processList.getProcesses().get(idx).getRemainingTime()));
+                                processList.getProcesses().get(idx).getRemainingTime())));
+
 
                 if (scheduler.isIdle()) {
                     cpuStatus.setText("IDLE");
@@ -355,15 +360,33 @@ public class MainController implements Initializable {
 
 
         while (!processList.isProcessesFinished()) {
-            Platform.runLater(() -> {
-                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
-                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
-            });
+//            Platform.runLater(() -> {
+//                Collections.sort(seriesList, Comparator.comparingInt(s -> ((XYChart.Series<Integer, Integer>) s).getData().get(0).getYValue()).thenComparingInt((s1) -> 0));
+//                graph.getData().sort(Comparator.comparingInt(series -> ((XYChart.Series<Integer, Integer>) series).getData().get(0).getYValue()).thenComparingInt((s1) -> 0));
+//            });
+
+//            seriesList = (ArrayList<XYChart.Series<Integer, Integer>>) seriesList.stream()
+//                    .sorted(Comparator.comparingInt(s -> s.getData().get(0).getYValue()))
+//                    .collect(Collectors.toList());
+//
+//            Platform.runLater(() -> {
+//                graph.setData(
+//                        FXCollections.observableArrayList(
+//                                graph.getData().stream()
+//                                        .sorted(Comparator.comparingInt(s -> s.getData().get(0).getYValue()))
+//                                        .collect(Collectors.toList())
+//                        )
+//                );
+//            });
+
+
             scheduler.schedule();
             Platform.runLater(() -> processTable.update());
             int idx = scheduler.getCurrentExecutingProcessIdx();
 
-            Platform.runLater(() -> seriesList.get(idx)
+            int listIndex = processList.getProcesses().get(idx).getId();
+
+            Platform.runLater(() -> seriesList.get(listIndex)
                     .getData()
                     .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
                             processList.getProcesses().get(idx).getRemainingTime())));
@@ -409,6 +432,7 @@ public class MainController implements Initializable {
         for (var series : seriesList) {
             series.getData().remove(0);
         }
+
         cpuStatus.setText("IDLE");
 
         startSimBtn.setDisable(false);
@@ -458,11 +482,13 @@ public class MainController implements Initializable {
     }
 
     public void reset() {
+        Process.resetCounter();
         processList = new ProcessList();
         processList.addProcess(new Process(0, 0, "null", -1));
         observableList = FXCollections.observableArrayList(
                 new Process(0, 0, "null", -1)
         );
+
         tableViewAdapter.clearTable();
         processList.getProcesses().clear();
         processTable.setItems(observableList);
@@ -478,6 +504,8 @@ public class MainController implements Initializable {
         seriesList.clear();
         graph.getData().clear();
         gantt.getChildren().clear();
+
+        addProcessBtn.setDisable(false);
     }
 
     public void viewTeam() {

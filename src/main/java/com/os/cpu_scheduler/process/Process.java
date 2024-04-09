@@ -10,6 +10,13 @@ public class Process {
     private int waitingTime = 0;
     private int turnaroundTime = 0;
     private int priority = 1;
+    private static int counter;
+
+    public int getId() {
+        return id - 2;
+    }
+
+    private int id;
 
     // constructor
     public Process(int arrivalTime, int burstTime, String name) {
@@ -17,6 +24,8 @@ public class Process {
         this.burstTime = burstTime;
         this.name = name;
         remainingTime = burstTime;
+        this.id = counter;
+        counter++;
     }
     public Process(int arrivalTime, int burstTime, String name , int priority) {
         this.arrivalTime = arrivalTime;
@@ -24,6 +33,8 @@ public class Process {
         this.name = name;
         remainingTime = burstTime;
         this.priority = priority;
+        this.id = counter;
+        counter++;
     }
 
     public Process(Process p) {
@@ -32,6 +43,8 @@ public class Process {
         this.priority = p.priority;
         this.arrivalTime = p.arrivalTime;
         this.remainingTime = p.remainingTime;
+        this.id = counter;
+        counter++;
     }
 
     // some getters&setters
@@ -76,6 +89,10 @@ public class Process {
                 ", burstTime=" + burstTime +
                 ", remainingTime=" + remainingTime +
                 '}';
+    }
+
+    public static void resetCounter() {
+        counter = 0;
     }
 
 }
