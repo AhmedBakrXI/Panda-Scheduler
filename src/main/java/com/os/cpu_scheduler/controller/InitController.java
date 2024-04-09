@@ -43,7 +43,6 @@ public class InitController implements Initializable {
 
     private Stage stage;
 
-    private Clip clip;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

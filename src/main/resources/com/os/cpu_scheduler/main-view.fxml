@@ -11,7 +11,6 @@
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.GaussianBlur?>
@@ -29,7 +28,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" styleClass="trans_anchor" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.os.cpu_scheduler.controller.MainController">
     <children>
         <Rectangle fx:id="window" arcHeight="5.0" arcWidth="5.0" fill="#125b9e" height="720.0" stroke="TRANSPARENT" strokeType="INSIDE" styleClass="background" width="1280.0" />
-        <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="13.0" layoutY="487.0" stroke="WHITE" strokeType="INSIDE" width="1251.0" />
+        <Rectangle id="ctrl-box" arcHeight="20.0" arcWidth="20.0" fill="#1f93ff00" height="213.0" layoutX="13.0" layoutY="487.0" stroke="BLACK" strokeType="INSIDE" width="1251.0" />
         <VBox prefHeight="719.0" prefWidth="1288.0">
             <children>
                 <HBox fx:id="windowHeader" alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="1281.0" spacing="10.0">
@@ -106,44 +105,35 @@
                     <children>
                   <HBox alignment="CENTER" prefHeight="83.0" prefWidth="1288.0" spacing="30.0">
                      <children>
-                        <Label text="CPU STATUS" textFill="WHITE">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texts" text="CPU STATUS:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Label>
+                        </Text>
                         <TextField fx:id="cpuStatus" alignment="CENTER" editable="false">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
                         </TextField>
-                        <Label text="Waiting Time" textFill="WHITE">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texts" text="Average Waiting Time:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Label>
+                        </Text>
                         <TextField fx:id="waitingText" alignment="CENTER" editable="false">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
                         </TextField>
-                        <Label text="Turnaround Time" textFill="WHITE">
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texts" text="Average Turnaround Time:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                        </Label>
+                        </Text>
                         <TextField fx:id="turnaroundText" alignment="CENTER" editable="false">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
-                           <effect>
-                              <DropShadow />
-                           </effect>
                         </TextField>
                      </children>
                      <padding>
@@ -186,12 +176,12 @@
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                             <children>
                                 <HBox alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
-                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Control Section">
+                                    <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="texts" text="Control Section">
                                         <font>
                                             <Font name="System Bold" size="22.0" />
                                         </font>
                                     </Text>
-                           <CheckBox fx:id="liveSimCheckBox" mnemonicParsing="false" onAction="#checkLiveSimulation" text="Live Simulation" textFill="WHITE" />
+                           <CheckBox fx:id="liveSimCheckBox" mnemonicParsing="false" onAction="#checkLiveSimulation" text="Live Simulation" textFill="#00ccf5" />
                                 </HBox>
                                 <HBox fx:id="fieldsBox" alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
                                     <children>
@@ -209,7 +199,7 @@
                                     <children>
                                         <MFXButton fx:id="addProcessBtn" onAction="#addProcess" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Add Process" />
                                         <MFXButton fx:id="startSimBtn" onAction="#startSimulation" prefHeight="37.0" prefWidth="133.0" styleClass="btn" text="Start Simulation" />
-                              <MFXButton contentDisplay="GRAPHIC_ONLY" onAction="#reset" rippleColor="#bdbdbd00" styleClass="btn">
+                              <MFXButton contentDisplay="GRAPHIC_ONLY" onAction="#reset" onMouseEntered="#rotateBtn" rippleColor="#bdbdbd00" styleClass="btn">
                                  <graphic>
                                     <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
@@ -229,9 +219,9 @@
                 </VBox>
             </children>
         </VBox>
-      <MFXButton contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="640.0" onAction="#viewTeam" rippleColor="#bdbdbd00" styleClass="btn">
+      <MFXButton contentDisplay="GRAPHIC_ONLY" layoutX="50.0" layoutY="640.0" onAction="#viewTeam" onMouseEntered="#enlargeBtn" onMouseExited="#shrinkBtn" rippleColor="#bdbdbd00" styleClass="btn">
          <graphic>
-            <ImageView fitHeight="25.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="25.0" fitWidth="34.0" onMouseEntered="#enlargeBtn" onMouseExited="#shrinkBtn" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@assets/team.png" />
                </image>

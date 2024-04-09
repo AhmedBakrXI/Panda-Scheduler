@@ -9,6 +9,8 @@ import com.os.cpu_scheduler.schedulers.*;
 import io.github.palexdev.materialfx.controls.*;
 import io.github.palexdev.materialfx.utils.ScrollUtils;
 import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
+import javafx.animation.RotateTransition;
+import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -60,6 +62,7 @@ public class MainController implements Initializable {
     @FXML
     private HBox gantt;
 
+    private ScaleTransition scaleTransition;
     private boolean isPriorityRemoved;
     private boolean isLiveSimulation;
 
@@ -138,7 +141,7 @@ public class MainController implements Initializable {
         colors = new ArrayList<>();
         for (int i = 0; i < numberOfColors; i++) {
             double hue = (i * 360.0 / numberOfColors); // Calculate hue for smooth transition
-            Color color = Color.hsb(hue, 0.5, 0.5); // Max saturation and brightness
+            Color color = Color.hsb(hue, 0.6, 0.6); // Max saturation and brightness
             colors.add(color);
         }
 
@@ -296,62 +299,65 @@ public class MainController implements Initializable {
             Thread thread = new Thread(this::playLiveSim);
             thread.start();
         } else {
-            addProcessBtn.setDisable(true);
-            if (!processList.isProcessesFinished()) {
+            playNonLiveSim();
+        }
+    }
+
+    private void playNonLiveSim() {
+        addProcessBtn.setDisable(true);
+        if (!processList.isProcessesFinished()) {
 //                Collections.sort(seriesList, Comparator.comparingInt(s -> s.getData().get(0).getYValue()));
 //                graph.getData().sort(Comparator.comparing(series -> series.getData().get(0).getYValue()));
 
-                scheduler.schedule();
-                processTable.update();
-                int idx = scheduler.getCurrentExecutingProcessIdx();
+            scheduler.schedule();
+            processTable.update();
+            int idx = scheduler.getCurrentExecutingProcessIdx();
 
-                int listIndex = processList.getProcesses().get(idx).getId();
+            int listIndex = processList.getProcesses().get(idx).getId();
 
-                Platform.runLater(() -> seriesList.get(listIndex)
-                        .getData()
-                        .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
-                                processList.getProcesses().get(idx).getRemainingTime())));
+            Platform.runLater(() -> seriesList.get(listIndex)
+                    .getData()
+                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                            processList.getProcesses().get(idx).getRemainingTime())));
 
 
-                if (scheduler.isIdle()) {
-                    cpuStatus.setText("IDLE");
-                } else {
-                    cpuStatus.setText(processList
-                            .getProcesses()
-                            .get(scheduler.getCurrentExecutingProcessIdx())
-                            .getName());
-
-                    Rectangle rectangle = new Rectangle(20, 50);
-                    rectangle.setFill(colors.get(
-                            scheduler.getCurrentExecutingProcessIdx()
-                    ));
-                    Text text = new Text(processList
-                            .getProcesses()
-                            .get(scheduler.getCurrentExecutingProcessIdx())
-                            .getName());
-                    text.setFill(Color.WHITE);
-
-                    StackPane pane = new StackPane(rectangle, text);
-                    Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
-                    time.setFill(Color.SKYBLUE);
-                    VBox box = new VBox(pane, time);
-                    gantt.getChildren().add(box);
-                }
+            if (scheduler.isIdle()) {
+                cpuStatus.setText("IDLE");
             } else {
-                for (var series : seriesList) {
-                    series.getData().remove(0);
-                }
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Simulation Ended");
-                alert.setHeaderText("Non Live Simulation Ended Successfully");
-                alert.show();
-                addProcessBtn.setDisable(false);
-                waitingText.setText(String.valueOf(processList.avgWaitingTime()));
-                turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
+                cpuStatus.setText(processList
+                        .getProcesses()
+                        .get(scheduler.getCurrentExecutingProcessIdx())
+                        .getName());
+
+                Rectangle rectangle = new Rectangle(20, 50);
+                rectangle.setFill(colors.get(
+                        scheduler.getCurrentExecutingProcessIdx()
+                ));
+                Text text = new Text(processList
+                        .getProcesses()
+                        .get(scheduler.getCurrentExecutingProcessIdx())
+                        .getName());
+                text.setFill(Color.WHITE);
+
+                StackPane pane = new StackPane(rectangle, text);
+                Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
+                time.setFill(Color.SKYBLUE.darker());
+
+                VBox box = new VBox(pane, time);
+                gantt.getChildren().add(box);
             }
+        } else {
+            for (var series : seriesList) {
+                series.getData().remove(0);
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Simulation Ended");
+            alert.setHeaderText("Non Live Simulation Ended Successfully");
+            alert.show();
+            addProcessBtn.setDisable(false);
+            waitingText.setText(String.valueOf(processList.avgWaitingTime()));
+            turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
         }
-
-
     }
 
 
@@ -414,7 +420,7 @@ public class MainController implements Initializable {
 
                     StackPane pane = new StackPane(rectangle, text);
                     Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
-                    time.setFill(Color.SKYBLUE);
+                    time.setFill(Color.SKYBLUE.darker());
                     VBox box = new VBox(pane, time);
                     gantt.getChildren().add(box);
                 });
@@ -466,7 +472,8 @@ public class MainController implements Initializable {
             translateTransition.setToX(clipImg.getFitWidth() - 40);
             translateTransition.play();
             clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/lightBackground.jpg")));
-            title.setFill(Color.SADDLEBROWN);
+            title.setFill(Color.rgb(67, 68, 74));
+            gantt.setStyle("-fx-background-color: #F0F0F0;");
         } else {
             lightMode = false;
             dayNight.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/moon.png")));
@@ -478,6 +485,7 @@ public class MainController implements Initializable {
             translateTransition.play();
             clipImg.setImage(new Image(getClass().getResourceAsStream("/com/os/cpu_scheduler/assets/nightBackground.jpg")));
             title.setFill(Color.WHITE);
+            gantt.setStyle("-fx-background-color: #303030;");
         }
     }
 
@@ -521,5 +529,24 @@ public class MainController implements Initializable {
                 throw new RuntimeException(e);
             }
         });
+    }
+
+    public void enlargeBtn(MouseEvent mouseEvent) {
+        scaleTransition = new ScaleTransition(Duration.millis(250), ((MFXButton) mouseEvent.getSource()));
+        scaleTransition.setToX(1.1);
+        scaleTransition.setToY(1.1);
+    }
+
+    public void shrinkBtn(MouseEvent mouseEvent) {
+        scaleTransition = new ScaleTransition(Duration.millis(250), ((MFXButton) mouseEvent.getSource()));
+        scaleTransition.setToX(1.0);
+        scaleTransition.setToY(1.0);
+    }
+
+
+    public void rotateBtn(MouseEvent mouseEvent) {
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(500), ((MFXButton) mouseEvent.getSource()));
+        rotateTransition.setByAngle(180);
+        rotateTransition.play();
     }
 }

@@ -54,6 +54,10 @@
 	-fx-min-height: 35;
 }
 
+#ctrl-box {
+    -fx-stroke: white;
+}
+
 #schedChoices .floating-text {
     -fx-background-color: transparent;
     -fx-text-fill: white;
@@ -162,8 +166,9 @@
     -fx-text-fill: white;
 }
 
-
-
+.texts {
+    -fx-fill: white;
+}
 .toggleBtn {
     -fx-background-color: linear-gradient(to top, #333333, #000000);
     -fx-background-radius: 50;

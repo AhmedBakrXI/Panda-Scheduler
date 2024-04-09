@@ -4,6 +4,7 @@ import io.github.palexdev.mfxresources.fonts.MFXFontIcon;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.animation.ScaleTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.effect.*;
@@ -14,15 +15,26 @@ import javafx.scene.layout.StackPane;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import javax.sound.sampled.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TeamController implements Initializable {
     double offsetX;
     double offsetY;
+
+    @FXML
+    Text name;
+    @FXML
+    Text id;
+    @FXML
+    Text task;
 
     @FXML
     ImageView card;
@@ -49,6 +61,8 @@ public class TeamController implements Initializable {
     PathTransition pathAnimation5;
 
     DropShadow dropShadow;
+
+    Stage stage;
 
     private static final int SLEEP = 1600;
     private static final int DURATION = 10;
@@ -94,6 +108,40 @@ public class TeamController implements Initializable {
         card4.setLayoutY(card.getLayoutY());
         card5.setLayoutY(card.getLayoutY());
 
+        Platform.runLater(() -> {
+                     stage = (Stage) card.getScene().getWindow();
+                }
+        );
+
+
+        File audio = new File(getClass().getResource("/com/os/cpu_scheduler/audio/viking.wav").getPath().replaceAll("%20", " "));
+        try {
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audio);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+            new Thread(() -> {
+                while (true) {
+                    if (stage != null && !stage.isShowing()) {
+                        clip.close();
+                    } else {
+                        if (!clip.isRunning() && stage != null) {
+                            if (!clip.isOpen()) {
+                                try {
+                                    clip.open(audioInputStream);
+                                } catch (LineUnavailableException | IOException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                            clip.setMicrosecondPosition(0);
+                            clip.start();
+                        }
+                    }
+                }
+            }).start();
+        } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
+            throw new RuntimeException(e);
+        }
 
         new Thread(this::init).start();
 
@@ -213,27 +261,45 @@ public class TeamController implements Initializable {
 
 
     public void display1() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/ra.jpg").toExternalForm()));
+        name.setText("Name: Ahmed Mohammed Bakr");
+        id.setText("ID: 2000037");
+        task.setText("Task: UI Design & Implementation");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/AHMED BAKR.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display2() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/slifer.jpg").toExternalForm()));
+        name.setText("Name: Fathy Abdelhady");
+        id.setText("ID: ??");
+        task.setText("Task: Backend Team Leader");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/FATHY ABDELHADY.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display3() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/obelisk.jpg").toExternalForm()));
+        name.setText("Name: Omar Saleh");
+        id.setText("ID: ??");
+        task.setText("Task: el OS 4a5syan");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/OMAR SALEH.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display4() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/exodia.jpg").toExternalForm()));
+        name.setText("Name: Yousef Wael");
+        id.setText("ID: ??");
+        task.setText("Task: bta3 python we AI");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/YOUSEF ASHMAWY.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display5() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/darkMagician.jpg").toExternalForm()));
+        name.setText("Name: Marwan Wael");
+        id.setText("ID: ??");
+        task.setText("Task: El Baraka");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/MARWAN WAEL.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
     public void display6() {
-        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/darkGirl.jpg").toExternalForm()));
+        name.setText("Name: Ahmed Mohammed Ahmed Atwa");
+        id.setText("ID: ??");
+        task.setText("Task: SW Design");
+        preview.setImage(new Image(getClass().getResource("/com/os/cpu_scheduler/cards/AHMED ATWA.jpeg").toExternalForm(), 270, 366, true, true));
     }
 
 }
