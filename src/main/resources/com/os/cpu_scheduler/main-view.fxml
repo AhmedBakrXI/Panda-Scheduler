@@ -185,7 +185,7 @@
                                 </HBox>
                                 <HBox fx:id="fieldsBox" alignment="CENTER" prefHeight="65.0" prefWidth="1278.0" spacing="20.0">
                                     <children>
-                                        <MFXComboBox id="schedChoices" fx:id="schedChoices" borderGap="0.0" editable="false" floatMode="BORDER" floatingText="Choose Scheduler" onAction="#selectScheduler" popupOffsetY="10.0" prefHeight="22.0" prefWidth="166.0" selectable="true" styleClass="mfx-combo-box" />
+                                        <MFXComboBox id="schedChoices" fx:id="schedulerChoices" borderGap="0.0" editable="false" floatMode="BORDER" floatingText="Choose Scheduler" onAction="#selectScheduler" popupOffsetY="10.0" prefHeight="22.0" prefWidth="166.0" selectable="true" styleClass="mfx-combo-box" />
                                         <MFXTextField fx:id="processName" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Process Name" selectable="false" styleClass="rounded-text-field" />
                                         <MFXTextField fx:id="arrivalTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Arrival Time" selectable="false" styleClass="rounded-text-field" />
                                         <MFXTextField fx:id="burstTime" allowEdit="false" floatMode="BORDER" prefHeight="0.0" prefWidth="227.0" promptText="Burst Time" selectable="false" styleClass="rounded-text-field" />
