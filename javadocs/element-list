@@ -1,6 +1,0 @@
-module:com.os.cpu_scheduler
-com.os.cpu_scheduler
-com.os.cpu_scheduler.adapter
-com.os.cpu_scheduler.controller
-com.os.cpu_scheduler.process
-com.os.cpu_scheduler.schedulers
