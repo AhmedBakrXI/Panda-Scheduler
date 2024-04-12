@@ -321,44 +321,42 @@ public class MainController implements Initializable {
         if (schedulerName != null) {
             if (schedulerName.equals(SchedulerTypes.FCFS.getDescription())) {
                 scheduler = new FCFS(processList);
-                fieldsBox.getChildren().remove(priority);
-                tableViewAdapter.removePriorityColumn();
-                isPriorityRemoved = true;
+                setPriorityUI(false);
             } else if (schedulerName.equals(SchedulerTypes.SJF_PREEMPTIVE.getDescription())) {
                 scheduler = new SJF(processList);
                 scheduler.setPreemptive(true);
-                fieldsBox.getChildren().remove(priority);
-                tableViewAdapter.removePriorityColumn();
-                isPriorityRemoved = true;
+                setPriorityUI(false);
             } else if (schedulerName.equals(SchedulerTypes.SJF_NON_PREEMPTIVE.getDescription())) {
                 scheduler = new SJF(processList);
                 scheduler.setPreemptive(false);
-                fieldsBox.getChildren().remove(priority);
-                tableViewAdapter.removePriorityColumn();
-                isPriorityRemoved = true;
+                setPriorityUI(false);
             } else if (schedulerName.equals(SchedulerTypes.PRIORITY_PREEMPTIVE.getDescription())) {
                 scheduler = new Priority(processList);
                 scheduler.setPreemptive(true);
-                if (isPriorityRemoved) {
-                    tableViewAdapter.addPriorityColumn();
-                    fieldsBox.getChildren().add(priority);
-                    isPriorityRemoved = false;
-                }
+                setPriorityUI(true);
             } else if (schedulerName.equals(SchedulerTypes.PRIORITY_NON_PREEMPTIVE.getDescription())) {
                 scheduler = new Priority(processList);
                 scheduler.setPreemptive(false);
-                if (isPriorityRemoved) {
-                    tableViewAdapter.addPriorityColumn();
-                    fieldsBox.getChildren().add(priority);
-                    isPriorityRemoved = false;
-                }
+                setPriorityUI(true);
             } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
                 scheduler = new RoundRobin(processList);
-                fieldsBox.getChildren().remove(priority);
-                tableViewAdapter.removePriorityColumn();
-                isPriorityRemoved = true;
+                setPriorityUI(false);
             }
             setEditable(true);
+        }
+    }
+
+    private void setPriorityUI(boolean priorityEnabled) {
+        if (priorityEnabled) {
+            if (isPriorityRemoved) {
+                tableViewAdapter.addPriorityColumn();
+                fieldsBox.getChildren().add(priority);
+                isPriorityRemoved = false;
+            }
+        } else {
+            fieldsBox.getChildren().remove(priority);
+            tableViewAdapter.removePriorityColumn();
+            isPriorityRemoved = true;
         }
     }
 

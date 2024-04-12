@@ -9,16 +9,31 @@ import javafx.geometry.Pos;
 
 import java.util.stream.IntStream;
 
+/**
+ * This class is an adapter that is used to connect the JavaFX TableView to the Process data model.
+ * It provides a convenient way to display and manipulate the data in the table.
+ */
 public class TableViewAdapter {
-    private MFXTableView<Process> tableView;
-    private ObservableList<Process> list;
+    private final MFXTableView<Process> tableView;
+    private final ObservableList<Process> list;
 
-
+    /**
+     * Constructs a new TableViewAdapter instance.
+     *
+     * @param tableView the JavaFX TableView to be connected to the Process data model
+     * @param list      the ObservableList containing the data to be displayed in the TableView
+     */
     public TableViewAdapter(MFXTableView<Process> tableView, ObservableList<Process> list) {
         this.tableView = tableView;
         this.list = list;
     }
 
+
+    /**
+     * Sets up the TableView to display the data in the Process data model.
+     *
+     * @param priorityEnable whether to enable the priority column in the TableView
+     */
     public void setupTable(boolean priorityEnable) {
         MFXTableColumn<Process> nameCol = new MFXTableColumn<>("Name");
         MFXTableColumn<Process> arrivalCol = new MFXTableColumn<>("Arrival Time");
@@ -40,9 +55,11 @@ public class TableViewAdapter {
         }});
         burstCol.setAlignment(Pos.CENTER);
 
-        remainingCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getRemainingTime) {{
-            setAlignment(Pos.CENTER);
-        }});
+        remainingCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getRemainingTime) {
+            {
+                setAlignment(Pos.CENTER);
+            }
+        });
         remainingCol.setAlignment(Pos.CENTER);
 
         tableView.getTableColumns().addAll(nameCol, arrivalCol, burstCol);
@@ -57,10 +74,17 @@ public class TableViewAdapter {
         tableView.setItems(list);
     }
 
+    /**
+     * Clears the table.
+     */
     public void clearTable() {
         list.clear();
     }
 
+
+    /**
+     * Adds priority column to the table.
+     */
     public void addPriorityColumn() {
         MFXTableColumn<Process> priorityCol = new MFXTableColumn<>("Priority");
         priorityCol.setRowCellFactory(process -> new MFXTableRowCell<>(Process::getPriority) {{
@@ -72,6 +96,9 @@ public class TableViewAdapter {
 
     }
 
+    /**
+     * Removes the priority column from the table
+     */
     public void removePriorityColumn() {
         int index = IntStream.range(0, tableView.getTableColumns().size())
                 .filter(i -> tableView.getTableColumns()

@@ -29,7 +29,7 @@ public class FCFS extends Scheduler {
                  (!(processes.get(currentExecutingProcessIdx).getArrivalTime() > processes.getClockCounter())))
             {
                 setIdle(false);
-                //calculatin waiting time and turnaround time
+                // calculating waiting time and turnaround time
                 calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
                 tick(currentExecutingProcessIdx);
             }

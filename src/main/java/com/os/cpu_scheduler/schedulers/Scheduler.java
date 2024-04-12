@@ -2,6 +2,11 @@ package com.os.cpu_scheduler.schedulers;
 
 import com.os.cpu_scheduler.process.*;
 
+
+/**
+ * Scheduler Class is an abstract class responsible for executing scheduler algorithms
+ * implemented by subclasses.
+ */
 public abstract class Scheduler {
     protected ProcessList processes;
     protected boolean idle = true;
@@ -45,19 +50,28 @@ public abstract class Scheduler {
         return time;
     }
 
+    /**
+     * Calculates the waiting time and turnaround time for all processes in the system.
+     *
+     * @param currentExecutingProcessIdx the index of the currently executing process
+     */
     public void calculateWaitingTimeAndTurnaroundTime(int currentExecutingProcessIdx) {
         for (int i = 0; i < processes.length(); i++) {
+            // Check if the current process is in the list of processes
             if ((processes.get(i).getArrivalTime() <= processes.getClockCounter())
                     && (processes.get(i).getRemainingTime() > 0) && (i != currentExecutingProcessIdx)) {
+                // Increment the waiting time and turnaround time of the process
                 processes.get(i).incWaitingTime();
                 processes.get(i).incTurnaroundTime();
             }
-
         }
+
+        // Increment the turnaround time of the current executing process
         processes.get(currentExecutingProcessIdx).incTurnaroundTime();
     }
 
+    /**
+     * Abstract method responsible for implementing the scheduler algorithm.
+     */
     public abstract void schedule();
-
-
 }
