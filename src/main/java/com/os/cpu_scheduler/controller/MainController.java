@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
-import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
@@ -41,7 +40,6 @@ import java.net.URL;
 import java.util.*;
 
 public class MainController implements Initializable {
-    private static final int WIDTH = 20;
     private static final int HEIGHT = 50;
 
     @FXML
@@ -440,14 +438,16 @@ public class MainController implements Initializable {
      * @return gantt box
      */
     private VBox getGanttBox() {
-        Rectangle rectangle = new Rectangle(WIDTH, HEIGHT);
-        rectangle.setFill(colors.get(
-                scheduler.getCurrentExecutingProcessIdx()
-        ));
+
         Text text = new Text(processList
                 .getProcesses()
                 .get(scheduler.getCurrentExecutingProcessIdx())
                 .getName());
+
+        Rectangle rectangle = new Rectangle(text.getLayoutBounds().getWidth() + 10, HEIGHT);
+        rectangle.setFill(colors.get(
+                scheduler.getCurrentExecutingProcessIdx()
+        ));
         text.setFill(Color.WHITE);
 
         StackPane pane = new StackPane(rectangle, text);
