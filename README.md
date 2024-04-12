@@ -23,7 +23,7 @@
     </tr>
     <tr>
       <td align="center" valign="top" width="33.33%"><a href="https://github.com/waelmarwan7"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/MARWAN%20WAEL.jpeg" width="100px;" alt="Marwan Wael"/><br /><sub><b>Marwan Wael</b></sub></a><br />🤨</td>
-      <td align="center" valign="top" width="33.33%"><a href="https://github.com/AhmedBakrXI"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/AHMED%20BAKR.jpeg" width="100px;" alt="Bakr"/><br /><sub><b>Ahmed Bakr</b></sub></a><br />👨‍💻</td>
+      <td align="center" valign="top" width="33.33%"><a href="https://github.com/AhmedBakrXI"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/AHMED%20BAKR.jpeg" width="100px;" alt="Bakr"/><br /><sub><b>Ahmed Bakr</b></sub></a><br />☕</td>
       <td align="center" valign="top" width="33.33%"><a href="https://github.com/Deadreyo"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/AHMED%20ATWA.jpeg" width="100px;" alt="Atwa"/><br /><sub><b>Ahmed Atwa</b></sub></a><br />🐱‍👤</td>
     </tr>
   </tbody>
