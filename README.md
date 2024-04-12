@@ -19,7 +19,7 @@
     <tr>
       <td align="center" valign="top" width="33.33%"><a href="https://github.com/FathyAbdlhady"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/FATHY%20ABDELHADY.jpeg" width="100px;" alt="Fathy"/><br /><sub><b>Fathy Abdelhady</b></sub></a><br />😎</td>
       <td align="center" valign="top" width="33.33%"><a href="https://github.com/MrMariodude"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/OMAR%20SALEH.jpeg" width="100px;" alt="OS"/><br /><sub><b>Omar Saleh</b></sub></a><br />😏</td>
-      <td align="center" valign="top" width="33.33%"><a href="https://github.com/youssefashmawy"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/YOUSEF%20ASHMAWY.jpeg" width="100px;" alt="Ashmawy"/><br /><sub><b>Yousef Ashmawy</b></sub></a><br />💫</td>
+      <td align="center" valign="top" width="33.33%"><a href="https://github.com/youssefashmawy"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/YOUSEF%20ASHMAWY.jpeg" width="100px;" alt="Ashmawy"/><br /><sub><b>Yousef Ashmawy</b></sub></a><br />🐍</td>
     </tr>
     <tr>
       <td align="center" valign="top" width="33.33%"><a href="https://github.com/waelmarwan7"><img src="https://github.com/AhmedBakrXI/Panda-Scheduler/blob/main/src/main/resources/com/os/cpu_scheduler/cards/MARWAN%20WAEL.jpeg" width="100px;" alt="Marwan Wael"/><br /><sub><b>Marwan Wael</b></sub></a><br />🤨</td>
