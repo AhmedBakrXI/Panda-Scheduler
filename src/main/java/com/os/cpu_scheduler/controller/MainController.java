@@ -425,11 +425,11 @@ public class MainController implements Initializable {
                     .get(scheduler.getCurrentExecutingProcessIdx())
                     .getName());
 
-            var box = getGanttBox();
-            Platform.runLater(() -> {
-                gantt.getChildren().add(box);
-            });
         }
+        var box = getGanttBox();
+        Platform.runLater(() -> {
+            gantt.getChildren().add(box);
+        });
     }
 
     /**
@@ -438,23 +438,31 @@ public class MainController implements Initializable {
      * @return gantt box
      */
     private VBox getGanttBox() {
-
-        Text text = new Text(processList
-                .getProcesses()
-                .get(scheduler.getCurrentExecutingProcessIdx())
-                .getName());
+        Text text;
+        if (!scheduler.isIdle()) {
+            text = new Text(processList
+                    .getProcesses()
+                    .get(scheduler.getCurrentExecutingProcessIdx())
+                    .getName());
+        } else {
+            text = new Text("📴");
+        }
 
         Rectangle rectangle = new Rectangle(text.getLayoutBounds().getWidth() + 10, HEIGHT);
-        rectangle.setFill(colors.get(
-                scheduler.getCurrentExecutingProcessIdx()
-        ));
+        if (!scheduler.isIdle()) {
+            rectangle.setFill(colors.get(
+                    scheduler.getCurrentExecutingProcessIdx()
+            ));
+        } else {
+            rectangle.setFill(Color.BLACK);
+        }
+
         text.setFill(Color.WHITE);
-
         StackPane pane = new StackPane(rectangle, text);
-        Text time = new Text(String.valueOf(scheduler.getTime() + getStartTime() - 1));
-        time.setFill(Color.SKYBLUE.darker());
+        Text timeText = new Text(String.valueOf(processList.getClockCounter() - 1));
+        timeText.setFill(Color.SKYBLUE.darker());
 
-        VBox box = new VBox(pane, time);
+        VBox box = new VBox(pane, timeText);
         return box;
     }
 
@@ -493,7 +501,6 @@ public class MainController implements Initializable {
             addToGraph(listIndex, idx);
 
             setSchedulerInfo();
-
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -501,7 +508,10 @@ public class MainController implements Initializable {
             }
         }
 
+        addProcessBtn.setDisable(true);
+
         cpuStatus.setText("IDLE");
+        addProcessBtn.setDisable(true);
 
         waitingText.setText(String.valueOf(processList.avgWaitingTime()));
         turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
@@ -517,10 +527,12 @@ public class MainController implements Initializable {
      */
     private void addToGraph(int listIndex, int idx) {
         Platform.runLater(() -> {
-            if (processList.getProcesses().get(idx).getArrivalTime() <= (getStartTime() + scheduler.getTime())) {
+            if (processList.getProcesses().get(idx).getArrivalTime() <= (processList.getClockCounter())
+                    && processList.getProcesses().get(idx).getRemainingTime() >= 0
+                    && !scheduler.isIdle()) {
                 seriesList.get(listIndex)
                         .getData()
-                        .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                        .add(new XYChart.Data<>(processList.getClockCounter(),
                                 processList.getProcesses().get(idx).getRemainingTime()));
             }
 
@@ -528,12 +540,12 @@ public class MainController implements Initializable {
             for (int i = 0; i < seriesList.size(); i++) {
                 int index = processList.getProcesses().get(i).getId();
                 if (i != current
-                && processList.getProcesses().get(i).getRemainingTime() != 0
-                && processList.getProcesses().get(i).getArrivalTime() <= (getStartTime() + scheduler.getTime())) {
+                        && processList.getProcesses().get(i).getRemainingTime() != 0
+                        && processList.getProcesses().get(i).getArrivalTime() <= (processList.getClockCounter())) {
 
                     seriesList.get(index)
                             .getData()
-                            .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                            .add(new XYChart.Data<>(processList.getClockCounter(),
                                     processList.getProcesses().get(i).getRemainingTime()));
                 }
             }
@@ -545,21 +557,6 @@ public class MainController implements Initializable {
      */
     public void checkLiveSimulation() {
         isLiveSimulation = liveSimCheckBox.isSelected();
-    }
-
-    /**
-     * Returns the minimum arrival time of all processes in the process list which is the start
-     * time of simulation.
-     *
-     * @return the minimum arrival time of all processes in the process list
-     */
-    private int getStartTime() {
-        int min = processList.getProcesses().get(0).getArrivalTime();
-        for (int i = 1; i < processList.getProcesses().size(); i++) {
-            if (processList.getProcesses().get(i).getArrivalTime() < min)
-                min = processList.getProcesses().get(i).getArrivalTime();
-        }
-        return min;
     }
 
     /**
