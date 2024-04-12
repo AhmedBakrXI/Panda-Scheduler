@@ -247,6 +247,7 @@ public class MainController implements Initializable {
 
     /**
      * Minimizes the app on clicking minimize button.
+     *
      * @param mouseEvent mouse event from minimize button.
      */
     public void minimize(MouseEvent mouseEvent) {
@@ -364,6 +365,7 @@ public class MainController implements Initializable {
 
     /**
      * Sets the text fields editable or not
+     *
      * @param editable boolean value indicating whether editable or not
      */
     private void setEditable(boolean editable) {
@@ -437,6 +439,7 @@ public class MainController implements Initializable {
 
     /**
      * Method to draw a gantt box used for chart
+     *
      * @return gantt box
      */
     private VBox getGanttBox() {
@@ -460,7 +463,8 @@ public class MainController implements Initializable {
 
     /**
      * Pops up Alert
-     * @param title title of alert
+     *
+     * @param title   title of alert
      * @param message heading message of alert
      */
     private void declareAlert(String title, String message) {
@@ -510,14 +514,26 @@ public class MainController implements Initializable {
 
     /**
      * Add a new point to the graph
+     *
      * @param listIndex the index of the point in series list
-     * @param idx the index of the process in processList
+     * @param idx       the index of the process in processList
      */
     private void addToGraph(int listIndex, int idx) {
-        Platform.runLater(() -> seriesList.get(listIndex)
-                .getData()
-                .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
-                        processList.getProcesses().get(idx).getRemainingTime())));
+        Platform.runLater(() -> {
+            seriesList.get(listIndex)
+                    .getData()
+                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                            processList.getProcesses().get(idx).getRemainingTime()));
+
+            for (int i = 0; i < seriesList.size(); i++) {
+                if (i != idx) {
+                    seriesList.get(i)
+                            .getData()
+                            .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                                    processList.getProcesses().get(i).getRemainingTime()));
+                }
+            }
+        });
     }
 
     /**
@@ -559,6 +575,7 @@ public class MainController implements Initializable {
 
     /**
      * Sets the light mode to the scene
+     *
      * @param scene scene to be set to light mode
      */
     private void setLightMode(Scene scene) {
@@ -576,6 +593,7 @@ public class MainController implements Initializable {
 
     /**
      * Sets the dark mode to the scene
+     *
      * @param scene scene to be set to dark mode
      */
     private void setDarkMode(Scene scene) {
