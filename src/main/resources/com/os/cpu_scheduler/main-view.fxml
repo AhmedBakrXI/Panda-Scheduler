@@ -7,7 +7,8 @@
 <?import io.github.palexdev.materialfx.controls.MFXTextField?>
 <?import io.github.palexdev.mfxresources.fonts.MFXFontIcon?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.AreaChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -154,17 +155,17 @@
                            <effect>
                               <DropShadow />
                            </effect></MFXTableView>
-                        <AreaChart fx:id="graph" prefHeight="218.0" prefWidth="535.0">
-                          <xAxis>
-                            <NumberAxis side="BOTTOM" />
-                          </xAxis>
-                          <yAxis>
-                            <NumberAxis side="LEFT" />
-                          </yAxis>
-                           <effect>
-                              <DropShadow />
-                           </effect>
-                        </AreaChart>
+                        <LineChart fx:id="graph" prefHeight="218.0" prefWidth="535.0">
+                            <xAxis>
+                                <NumberAxis side="BOTTOM" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis side="LEFT" />
+                            </yAxis>
+                            <effect>
+                                <DropShadow />
+                            </effect>
+                        </LineChart>
                      </children>
                      <VBox.margin>
                         <Insets />

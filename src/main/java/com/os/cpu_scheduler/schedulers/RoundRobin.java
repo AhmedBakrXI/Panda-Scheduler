@@ -17,7 +17,6 @@ public class RoundRobin extends Scheduler {
         setIdle(true);
         currentExecutingProcessIdx = (currentExecutingProcessIdx + 1) % processes.length();
         for (int i = 0; i <= processes.length(); i++) {
-
             if ((processes.get(currentExecutingProcessIdx).getArrivalTime() <= processes.getClockCounter())
                     && (processes.get(currentExecutingProcessIdx).getRemainingTime() > 0)) {
                 setIdle(false);
@@ -55,7 +54,5 @@ public class RoundRobin extends Scheduler {
             System.out.println(" WaitingTime = " + processList.get(i).getWaitingTime() + " TurnaroundTime = "
                     + processList.get(i).getTurnaroundTime());
         }
-
-
     }
 }

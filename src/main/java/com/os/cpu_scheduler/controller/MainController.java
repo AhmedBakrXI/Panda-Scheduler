@@ -20,6 +20,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -99,7 +100,7 @@ public class MainController implements Initializable {
     private MFXButton startSimBtn;
 
     @FXML
-    private AreaChart<Integer, Integer> graph;
+    private LineChart<Integer, Integer> graph;
 
     private ArrayList<XYChart.Series<Integer, Integer>> seriesList;
 
@@ -353,11 +354,9 @@ public class MainController implements Initializable {
                 }
             } else if (schedulerName.equals(SchedulerTypes.ROUND_ROBIN.getDescription())) {
                 scheduler = new RoundRobin(processList);
-                if (isPriorityRemoved) {
-                    tableViewAdapter.addPriorityColumn();
-                    fieldsBox.getChildren().add(priority);
-                    isPriorityRemoved = false;
-                }
+                fieldsBox.getChildren().remove(priority);
+                tableViewAdapter.removePriorityColumn();
+                isPriorityRemoved = true;
             }
             setEditable(true);
         }
@@ -520,14 +519,21 @@ public class MainController implements Initializable {
      */
     private void addToGraph(int listIndex, int idx) {
         Platform.runLater(() -> {
-            seriesList.get(listIndex)
-                    .getData()
-                    .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
-                            processList.getProcesses().get(idx).getRemainingTime()));
+            if (processList.getProcesses().get(idx).getArrivalTime() <= (getStartTime() + scheduler.getTime())) {
+                seriesList.get(listIndex)
+                        .getData()
+                        .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
+                                processList.getProcesses().get(idx).getRemainingTime()));
+            }
 
+            int current = scheduler.getCurrentExecutingProcessIdx();
             for (int i = 0; i < seriesList.size(); i++) {
-                if (i != idx) {
-                    seriesList.get(i)
+                int index = processList.getProcesses().get(i).getId();
+                if (i != current
+                && processList.getProcesses().get(i).getRemainingTime() != 0
+                && processList.getProcesses().get(i).getArrivalTime() <= (getStartTime() + scheduler.getTime())) {
+
+                    seriesList.get(index)
                             .getData()
                             .add(new XYChart.Data<>(getStartTime() + scheduler.getTime(),
                                     processList.getProcesses().get(i).getRemainingTime()));
