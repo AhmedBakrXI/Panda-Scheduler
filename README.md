@@ -24,18 +24,14 @@ An educational desktop application that simulates the CPU scheduling algorithms.
 - [MaterialFX](https://github.com/palexdev/MaterialFX)
 
 ## Setup
-
-TODO: add download link.
-
-TODO: "This application works on [Windows/Linux/MacOS]."
+This application works on [Windows/Linux/MacOS].
 
 ### Prerequisite
-
-TODO: Add prerequisite programs like Java
+- You should have jre 20 or above installed.
 
 ### Installation
 
-TODO: specify how to install the app, could be just run exe
+You can download the app from this [link](https://drive.google.com/drive/folders/1G21NE5N9AGt7oIYzIMnOConbIEMn5A6f?usp=sharing) and run .exe or .jar.
 
 ## Features
 
@@ -106,15 +102,22 @@ The application supports both light and dark modes.
 
 ### Prerequisites
 
-TODO: Add prerequisite software or environment setup.
+- You must have jdk 20 or above installed.
+- You should have a version of maven that supports jdk 20 installed.
 
 ### Installation
 
-TODO: Specify how to install the repo and its dependencies.
+- Clone the repo.
+```
+git clone https://github.com/AhmedBakrXI/Panda-Scheduler.git
+```
 
 ### Run
 
-TODO: Specify how to run the app.
+- Open the terminal and type
+```
+mvn compile javafx:run
+```
 
 
 ## Collaborators <img src="https://user-images.githubusercontent.com/74038190/214644145-264f4759-7633-441e-9d67-d8dda9d50d26.gif" width="70">
