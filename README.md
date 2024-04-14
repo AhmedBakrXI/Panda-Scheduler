@@ -11,8 +11,114 @@
 
 <h3 align="center"> Panda Scheduler </h3>
 
+An educational desktop application that simulates the CPU scheduling algorithms. The application is designed to help students understand the concepts of CPU scheduling algorithms by visualizing the process of scheduling and executing processes on the CPU.
 
-<h2>Collaborators <img src="https://user-images.githubusercontent.com/74038190/214644145-264f4759-7633-441e-9d67-d8dda9d50d26.gif" width="70"></h2>
+![](./docs/mainimage.png)
+
+### Built with
+![My Skills](https://skillicons.dev/icons?i=java,maven)
+- Java
+- JDK 20
+- Maven
+- JavaFX 21
+- [MaterialFX](https://github.com/palexdev/MaterialFX)
+
+## Setup
+
+TODO: add download link.
+
+TODO: "This application works on [Windows/Linux/MacOS]."
+
+### Prerequisite
+
+TODO: Add prerequisite programs like Java
+
+### Installation
+
+TODO: specify how to install the app, could be just run exe
+
+## Features
+
+### 6 Types of Scheduling Algorithms
+
+- First Come First Serve (FCFS)
+- Shortest Job First: Preemptive & Non-Preemptive
+- Priority Scheduling: Preemptive & Non-Preemptive
+- Round Robin (RR)
+    
+### 2 Types of Simulation
+
+**Interactive Simulation**
+
+- The scheduler progresses through the processes step by step via user's click.
+- Allows the user to pause/resume the simulation at any time.
+
+**Live Simulation**
+
+- The scheduler progresses through the processes automatically in real-time.
+- Allows the user to add new processes to the scheduler while the simulation is running.
+
+### Process Table
+
+- Allows the user to easily add processes via an easy-to-use form.
+- Displays all details of the processes during the simulation.
+
+### Visualization via charts
+
+Includes 2 types of charts to enhance grasping the concepts of the scheduling algorithms:
+
+**Gantt Chart**: Displays the timeline of the processes execution on the CPU.
+
+![](./docs/ganttchart.png)
+
+**Line Chart**: Displays each process's status, start time, remaining time and end time.
+
+![](./docs/linechart.png)
+
+In addition to calculating the average waiting time and turnaround time for the processes.
+
+### Light and Dark Mode
+
+The application supports both light and dark modes.
+
+![](./docs/lightmode.png)
+
+## Usage
+
+1- In the control section, select the desired scheduling algorithm.
+
+2- Input the details each process in the fields provided then click the "Add Process" button.
+
+3- Check the "Live Simulation" checkbox if you want to run the simulation in real-time. Don't check it if you want to run the simulation step by step.
+
+4- Click the "Start Simulation" button to start the simulation.
+
+5- If you didn't check the "Live Simulation" checkbox, click the "Start Simulation" button to proceed to the next step in the simulation.
+
+6- If you checked the "Live Simulation" checkbox, you can add new processes to the scheduler while the simulation is running.
+
+7- The simulation will end when all processes are executed.
+
+8- To run a new simulation, click the reset button.
+
+
+## Development
+
+### Prerequisites
+
+TODO: Add prerequisite software or environment setup.
+
+### Installation
+
+TODO: Specify how to install the repo and its dependencies.
+
+### Run
+
+TODO: Specify how to run the app.
+
+
+## Collaborators <img src="https://user-images.githubusercontent.com/74038190/214644145-264f4759-7633-441e-9d67-d8dda9d50d26.gif" width="70">
+
 <img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif">
 <table align="center">
   <tbody>
