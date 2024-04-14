@@ -478,7 +478,6 @@ public class MainController implements Initializable {
             alert.setTitle(title);
             alert.setHeaderText(message);
             alert.show();
-            addProcessBtn.setDisable(false);
             waitingText.setText(String.valueOf(processList.avgWaitingTime()));
             turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));
         });
@@ -511,7 +510,6 @@ public class MainController implements Initializable {
         addProcessBtn.setDisable(true);
 
         cpuStatus.setText("IDLE");
-        addProcessBtn.setDisable(true);
 
         waitingText.setText(String.valueOf(processList.avgWaitingTime()));
         turnaroundText.setText(String.valueOf(processList.avgTurnAroundTime()));

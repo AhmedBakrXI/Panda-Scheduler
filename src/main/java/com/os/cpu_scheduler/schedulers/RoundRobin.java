@@ -29,7 +29,6 @@ public class RoundRobin extends Scheduler {
             calculateWaitingTimeAndTurnaroundTime(currentExecutingProcessIdx);
             tick(currentExecutingProcessIdx);
         }
-        System.out.println("clock = " + processes.getClockCounter());
         processes.incClockCounter();
     }
 
